@@ -2208,6 +2208,16 @@ img.svg{
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
 			box-sizing: border-box; /* Opera/IE 8+ */
 }
+.arlo_tm_portfolio_single_wrap .images_list_small{
+	width: 33%;
+	height: auto;
+	float: center;
+	margin-bottom: 50px;
+	
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
+			box-sizing: border-box; /* Opera/IE 8+ */
+}
 .arlo_tm_portfolio_single_wrap .images_list ul{
 	margin: 0px;
 	list-style-type: none;
