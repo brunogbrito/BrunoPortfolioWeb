@@ -512,8 +512,8 @@ function arlo_tm_animate_text(){
 	var animateSpan			= jQuery('.arlo_tm_animation_text_word');
 	
 		animateSpan.typed({
-			strings: ["Game Designer", "Technical Designer", "Level Designer"],
-			loop: true,
+			strings: ["Technical Designer"],
+			loop: false,
 			startDelay: 1e3,
 			backDelay: 2e3
 		});
