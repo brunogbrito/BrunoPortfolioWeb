@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="css/plugins.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/prism.css" />
+	<link rel="stylesheet" type="text/css" href="css/extra.css" />
 <!--[if lt IE 9]> <script type="text/javascript" src="js/modernizr.custom.js"></script> <![endif]-->
 <!-- /STYLES -->
 
@@ -196,43 +197,99 @@
 								<iframe width="540" height="320" src="https://www.youtube.com/embed/VGt2ouql3ps" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 						</div>
-						
-								<h2>Project Architecture</h2>
-								<br>
-								
-								<div class="details_wrap">
+						<h2>Project Architecture</h2>
+						<br><br>
+						<span>Click on the tabs for more details</span>
+
+						<div class="details_wrap">
 														
-							<div class="leftbox">
-								<iframe width="540" height="320" src="https://www.youtube.com/embed/VGt2ouql3ps" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							</div>
-									
-							<div class="rightbox">
-									<div class="short_list">
-										<ul>
-											<li>
-												<span class="first">Game Mode:</span>
-												<p>Controls game state, Spawn characters, Scoring system, Map Transition</p>
-											</li>
-											<li>
-												<span class="first">Game Instance:</span>
-												<p>Holds players information for map transitions</p>
-											</li>
-											<li>
-												<span class="first">Player Controller:</span>
-												<p>Input logic for MainMenu, Lobby and UI</p>
-											</li>
-											<li>
-												<span class="first">Pawn:</span>
-												<p>Input logic for gameplay, general pawn logic</p>
-											</li>
-											<li>
-												<span class="first">Actors:</span>
-												<p>Other gameplay logic that might communicate with Game Mode or Pawn class</p>
-											</li>
-										</ul>
-								</div>
-							</div>	
-						</div>
+									<div class="leftbox">
+																		<!-- Tab links -->
+										<div class="tab">
+										  <button class="tablinks" onclick="openCity(event, 'ProjectFlowchart')" id="defaultOpen"><h6>Flowchart</h6></button>
+										  <button class="tablinks" onclick="openCity(event, 'NameConvention')"><h6>Naming</h6></button>
+										  <button class="tablinks" onclick="openCity(event, 'FolderStructure')"><h6>Folder Structure</h6></button>
+										</div>
+
+										<!-- Tab content -->
+										<div id="ProjectFlowchart" class="tabcontent">
+											<div style="width: 390px; height: 250px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:390px; height:250px" src="https://www.lucidchart.com/documents/embeddedchart/0c081189-3404-4ddc-8f2c-861dd6e4ab13" id="rSgKnKsdr00z"></iframe></div>
+											</div>
+
+										<div id="NameConvention" class="tabcontent">
+											<div class="short_list">
+											<ul>
+													<li>BP = Blueprint Actors</li>
+													<li>BPC = Actor Component</li>
+													<li>WBP = Widget Blueprint</li>
+													<li>M = Material</li>
+													<li>SM = Static Mesh (3d Mesh)</li>
+													<li>MI = Material Instance</li>
+													<li>Inherent = Base Class ( If you intend to make subclasses later ex: pickups)</li>
+													<li>Main = Levels</li>
+													<li>IBP = Interfaces</li>
+													<li>P = Particles</li>
+													<li>T = Textures</li>
+													<li>ABP = Animations Blueprint</li>
+											</ul>
+											</div>
+										</div>
+
+										<div id="FolderStructure" class="tabcontent">
+											<div class="short_list">
+											<p><strong>//Content</strong></p>
+												<div class="short_list">
+												<ul>	
+													<li>   /Assets</li>
+													<li>      /Arena</li>
+													<li>      /Character</li>
+													<li>      /Pickups</li>
+													<li>   Blueprints</li>
+													<li>      /Audio</li>
+													<li>      /Gameplay</li>
+													<li>      /Scripts</li>
+													<li>   /Maps</li>
+													<li>   /Materials</li>
+													<li>   /VFX</li>
+													<li>   /UI</li>
+													<li>      /Widgets</li>
+													<li>      /Textures</li>
+													<li>   Temp</li>
+												</ul>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="rightbox">
+											<div class="short_list">
+												<ul>
+													<li>
+														<span class="first">Game Mode:</span>
+														<p>Controls game state, Spawn characters, Scoring system, Map Transition</p>
+													</li>
+													<li>
+														<span class="first">Game Instance:</span>
+														<p>Holds players information for map transitions</p>
+													</li>
+													<li>
+														<span class="first">Player Controller:</span>
+														<p>Input logic for MainMenu, Lobby and UI</p>
+													</li>
+													<li>
+														<span class="first">Pawn:</span>
+														<p>Input logic for gameplay, general pawn logic</p>
+													</li>
+													<li>
+														<span class="first">Actors:</span>
+														<p>Other gameplay logic that might communicate with Game Mode or Pawn class</p>
+													</li>
+												</ul>
+											</div>
+										</div>	
+									</div>
+														
 								
 								<p>Pickpon is local multiplayer party game, 2-4 players.  which means that we had to setup a basic local  we wanted to have a lobby screen, where players can join the game before the match</p>
 								<br>
