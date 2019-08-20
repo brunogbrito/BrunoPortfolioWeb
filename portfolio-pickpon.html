@@ -293,10 +293,10 @@
 								<h2>Local Multiplayer</h2>
 								<br>
 								
-								<p>Pickpon is local multiplayer party game, <strong>2-4 players</strong>.   which means that we had to setup a basic local  we wanted to have a lobby screen, where players can join the game before the match</p>
+								<p>I scripted the local multiplayer system for <strong>2-4 players, splitted screens gameplay</strong>. I started creating a <strong>lobby</strong> where players can join the local session by pressing "Start". The controller and pawn information gets stored in the <strong>Game Instance class for map transitions.</strong> When the gameplay level is loaded, the <strong>Game Mode class gets the data from GI class</strong> assigning each pawn to its current player controller, setting the conditions to start the match and <strong>activating the camera Split-screen.</strong></p>
 								<br>
 								
-						<button class="collapsible">Click here to see the code snipet</button>
+						<button class="collapsible">Click here to see the Split-Screen code snipet and blueprint function</button>
 						<div class="content">
 						<pre class="line-numbers"><code class="language-cpp">//.h
  

@@ -1,7 +1,7 @@
 /* ----------------------------- COLLAPSIBLE BUTTON --------------------------------- */
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
-  background-color: #606060;
+  background-color: #333;
   color: #E5E5E5;
   cursor: pointer;
   padding: 18px;
@@ -125,7 +125,7 @@
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
-  background-color: #606060;
+  background-color: #333;
   border-radius: 5px;
 }
 
