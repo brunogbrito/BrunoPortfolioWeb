@@ -1,20 +1,21 @@
 /* ----------------------------- COLLAPSIBLE BUTTON --------------------------------- */
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
-  background-color: #eee;
-  color: #444;
+  background-color: #606060;
+  color: #E5E5E5;
   cursor: pointer;
   padding: 18px;
   width: 100%;
   border: none;
   text-align: left;
   outline: none;
-  font-size: 15px;
+  font-size: 15px;border-radius: 5px;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
-  background-color: #ccc;
+  background-color: #E3872D;
+  color: #111;
 }
 
 /* Style the collapsible content. Note: hidden by default */
@@ -125,6 +126,7 @@
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #606060;
+  border-radius: 5px;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -154,7 +156,7 @@
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
-  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+  animation: fadeEffect 0.2s; /* Fading effect takes 1 second */
 }
 
 
