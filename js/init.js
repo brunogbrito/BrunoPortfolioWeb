@@ -806,9 +806,9 @@ function showSlides(n) {
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
-// ------------------ Horizontal Tabs Row -----------------//
+// ------------------ Architecture Horizontal Tabs Row -----------------//
 
-function openCity(evt, cityName) {
+function openArchitecture(evt, archName) {
   // Declare all variables
   var i, tabcontent, tablinks;
 
@@ -825,8 +825,34 @@ function openCity(evt, cityName) {
   }
 
   // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(cityName).style.display = "block";
+  document.getElementById(archName).style.display = "block";
   evt.currentTarget.className += " active";
 }
 
 document.getElementById("defaultOpen").click();
+
+
+// ------------------ Second Tab Horizontal Tabs Row -----------------//
+
+function openScript1(evt, scriptName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent1");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks1");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(scriptName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen1").click();

@@ -206,15 +206,15 @@
 									<div class="leftbox">
 																		<!-- Tab links -->
 										<div class="tab">
-										  <button class="tablinks" onclick="openCity(event, 'ProjectFlowchart')" id="defaultOpen"><h6>Flowchart</h6></button>
-										  <button class="tablinks" onclick="openCity(event, 'NameConvention')"><h6>Naming</h6></button>
-										  <button class="tablinks" onclick="openCity(event, 'FolderStructure')"><h6>Folder Structure</h6></button>
+										  <button class="tablinks" onclick="openArchitecture(event, 'ProjectFlowchart')" id="defaultOpen"><h6>Flowchart</h6></button>
+										  <button class="tablinks" onclick="openArchitecture(event, 'NameConvention')"><h6>Naming</h6></button>
+										  <button class="tablinks" onclick="openArchitecture(event, 'FolderStructure')"><h6>Folder Structure</h6></button>
 										</div>
 
 										<!-- Tab content -->
 										<div id="ProjectFlowchart" class="tabcontent">
 											<div style="width: 390px; height: 250px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:390px; height:250px" src="https://www.lucidchart.com/documents/embeddedchart/0c081189-3404-4ddc-8f2c-861dd6e4ab13" id="rSgKnKsdr00z"></iframe></div>
-											</div>
+										</div>
 
 										<div id="NameConvention" class="tabcontent">
 											<div class="short_list">
@@ -259,7 +259,6 @@
 												</div>
 											</div>
 										</div>
-
 									</div>
 
 									<div class="rightbox">
@@ -296,9 +295,27 @@
 								<p>I scripted the local multiplayer system for <strong>2-4 players, splitted screens gameplay</strong>. I started creating a <strong>lobby</strong> where players can join the local session by pressing "Start". The controller and pawn information gets stored in the <strong>Game Instance class for map transitions.</strong> After loading the gameplay level, <strong>Game Mode class</strong> retrive that GI information and <strong>sets player pawns to their correct player controller</strong>, and set the conditions to start the match <strong>activating the camera Split-screen mode.</strong></p>
 								<br>
 								
-						<button class="collapsible">Click here to see the Split-Screen code snipet and blueprint function</button>
+													<div class="container">
+								<center>
+								<img src="img/portfolio/pickpon/lobby.gif" alt="Lobby"/> 
+								<img src="img/portfolio/pickpon/gameplay.gif" alt="Gameplay"/>
+								</center>
+							</div>
+						<br>
+						
+						<button class="collapsible" onclick="openScript1(event, 'splitscreen')">Click here to see the code snipet and blueprints</button>
 						<div class="content">
-						<pre class="line-numbers"><code class="language-cpp">//.h
+							
+						<div class="tab">
+										  <button class="tablinks1" onclick="openScript1(event, 'splitscreen')"><h6>Camera Splitscreen</h6></button>
+										  <button class="tablinks1" onclick="openScript1(event, 'lobby')"><h6>Lobby</h6></button>
+										  <button class="tablinks1" onclick="openScript1(event, 'players')"><h6>2-4 players setup</h6></button>
+										</div>
+
+										<!-- Tab content -->
+										<div id="splitscreen" class="tabcontent1">
+											
+											<pre class="line-numbers"><code class="language-cpp">//.h
  
 	UFUNCTION(BlueprintCallable, meta = (WorldContext = "WorldObjectContext"))
 	static void SetCameraSplitscreen(bool bIsDisabled, UObject* WorldObjectContext);
@@ -317,8 +334,19 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
 	}
 
 }</code></pre>
+
+											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/hsltztoo" scrolling="no" allowfullscreen></iframe>
+											</div>
+
+											<div id="lobby" class="tabcontent1">
+											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
+										</div>
+
+						
 						</div>
-						<br><br>
+						<br>
+
+						<br><br><br>
 								<h2>Editor Scripts</h2>
 						<br>
 								<p>After long talks and brainstorming, we decided to simplify the game as much as we could. The game now became what we called <strong>Katamari Battleroyale</strong>. Short arena, where players would have to pick up many object as possible and drop them in their base area.</p>
