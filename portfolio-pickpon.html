@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="css/plugins.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/prism.css" />
-	<link rel="stylesheet" type="text/css" href="css/extra.css" />
+<link rel="stylesheet" type="text/css" href="css/extra.css" />
 <!--[if lt IE 9]> <script type="text/javascript" src="js/modernizr.custom.js"></script> <![endif]-->
 <!-- /STYLES -->
 
@@ -172,7 +172,7 @@
 						
 							<div class="leftbox">
 								<div class="name_holder">
-									<h3>My Roles and Responsabilities</h3>
+									<h3>My Roles and Responsibilities</h3>
 								</div>
 									<div class="short_list">
 										<ul>
@@ -290,9 +290,9 @@
 									</div>
 								
 								<h2>Local Multiplayer</h2>
-								<br>
+								<br><br>
 								
-								<p>I scripted the local multiplayer system for <strong>2-4 players, splitted screens gameplay</strong>. I started creating a <strong>lobby</strong> where players can join the local session by pressing "Start". The controller and pawn information gets stored in the <strong>Game Instance class for map transitions.</strong> After loading the gameplay level, <strong>Game Mode class</strong> retrive that GI information and <strong>sets player pawns to their correct player controller</strong>, and set the conditions to start the match <strong>activating the camera Split-screen mode.</strong></p>
+								<p>I scripted the local multiplayer system for <strong>2-4 players, splitted screens gameplay</strong>. I started creating a <strong>lobby</strong> where players can join the local session by pressing "Start". The controller and pawn information gets stored in the <strong>Game Instance class for map transitions.</strong> After loading the gameplay level, <strong>Game Mode class</strong> retrieve that GI information and <strong>sets player pawns to their correct player controller</strong>, and set the conditions to start the match <strong>activating the camera Split-screen mode</strong></p>
 								<br>
 								
 													<div class="container">
@@ -303,19 +303,30 @@
 							</div>
 						<br>
 						
-						<button class="collapsible" onclick="openScript1(event, 'splitscreen')">Click here to see the code snipet and blueprints</button>
+						<button class="collapsible">Click here to see the code snipet and blueprints</button>
 						<div class="content">
-							
-						<div class="tab">
-										  <button class="tablinks1" onclick="openScript1(event, 'splitscreen')"><h6>Camera Splitscreen</h6></button>
-										  <button class="tablinks1" onclick="openScript1(event, 'lobby')"><h6>Lobby</h6></button>
-										  <button class="tablinks1" onclick="openScript1(event, 'players')"><h6>2-4 players setup</h6></button>
-										</div>
+						
+								<div class="name_holder">
+									<br>
+									<h3>Lobby</h3>
+									<br>
+									<p>The lobby system is composed by 3 Events. The <strong>"SpawnCharacter"</strong> event replaces an empty dummy pawn to a playable character pawn and assigns it to the controller which joined the session. <strong>"DespawnCharacter"</strong> does the opposite logic from "SpawnCharacter". <strong>"DespawnAllMenuCharacters"</strong> resets all the pawns to the dummy. It's triggered when players go back to the main menu or after a game match </p>
+									<br>
+								</div>
 
-										<!-- Tab content -->
-										<div id="splitscreen" class="tabcontent1">
+										<div id="lobby" class="tabcontent1">
+											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
+										</div>
+							
+								<div class="name_holder">
+									<br>
+									<h3>Camera Splitscreen C++ Function</h3>
+									<br>
+									<p>To enable/disable the camera splitscreen in runtime I created this <strong>custom C++ class</strong> which allows scripting this functionality in Blueprints </p>
+									<br>
+								</div>
 											
-											<pre class="line-numbers"><code class="language-cpp">//.h
+											<pre style"width:300px" class="line-numbers"><code class="language-cpp">//.h
  
 	UFUNCTION(BlueprintCallable, meta = (WorldContext = "WorldObjectContext"))
 	static void SetCameraSplitscreen(bool bIsDisabled, UObject* WorldObjectContext);
@@ -335,27 +346,26 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
 
 }</code></pre>
 
-											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/hsltztoo" scrolling="no" allowfullscreen></iframe>
-											</div>
+								<div class="name_holder">
+									<br>
+									<h3>2-4 players setup</h3>
+									<br>
+									<p>This function runs when the match starts, it spawn player characters and assign them to their controllers, It also remove non active players and controllers </p>
+									<br>
+								</div>
+								
 
-											<div id="lobby" class="tabcontent1">
-											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
-										</div>
-
-						
+											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/5ps1lzvb" scrolling="no" allowfullscreen></iframe>
+				
 						</div>
 						<br>
 
 						<br><br><br>
 								<h2>Editor Scripts</h2>
-						<br>
-								<p>After long talks and brainstorming, we decided to simplify the game as much as we could. The game now became what we called <strong>Katamari Battleroyale</strong>. Short arena, where players would have to pick up many object as possible and drop them in their base area.</p>
-								<br>
-								<p>Most of the mechanics were implemented by them. This week I focused in script the main menu logic and general game loop rules.</p>
 						<br><br>
-						
-							<p><strong>Also worked in creating scripting tools for other designers to quickly create a crowd arena and helped 3D artists integrate directional light system with their shader inside the engine. </strong></p>
+							<p>One of my favorite tasks was creating scripting tools for other designers to quickly create an crowd arena and 3D artists integrate directional light system with their shader inside the engine.</p>
 						<br>
+							
 						<video width="560" height="320" controls>
   						<source src="img/portfolio/pickpon/crowd script.mp4" type="video/mp4">
 						Your browser does not support the video tag.
@@ -364,86 +374,35 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
   						<source src="img/portfolio/pickpon/light+shader.mp4" type="video/mp4">
 						Your browser does not support the video tag.
 						</video>
-						<br>
-						<p><strong>Reflection:</strong></p>
-						<p>My biggest insecurity was the fear of failing my team for some reason, which fortunately did not happen, but anxiety was a very difficult factor to control
-during those days. I really enjoy scripting and creating tools to make it easier for other designers and I believe my scripts saved a lot of time for certain tasks that would take a lot of time if they were done manually.
- 
-Overall it was a great experience, the team was quite pleased with the result!</p>
-						<br>
-						<p><strong>It was a pleasure working with this team :)</strong></p>
-						<br>
-														<!----- BEGIN OF CARROUSSEL -->
-						
-							<div class="container">
-							  <div class="mySlides">
-								<div class="numbertext">1 / 6</div>
-								<img src="img/portfolio/pickpon/image0.jpg" alt="" style="width:100%">
-							  </div>
-
-							  <div class="mySlides">
-								<div class="numbertext">2 / 6</div>
-								<img src="img/portfolio/pickpon/image2.jpg" alt="" style="width:100%">
-							  </div>
-
-							  <div class="mySlides">
-								<div class="numbertext">3 / 6</div>
-								<img src="img/portfolio/pickpon/image5.jpg" alt="" style="width:100%">
-							  </div>
-
-							  <div class="mySlides">
-								<div class="numbertext">4 / 6</div>
-								<img src="img/portfolio/pickpon/image4.jpg" alt="" style="width:100%">
-							  </div>
-
-							  <div class="mySlides">
-								<div class="numbertext">5 / 6</div>
-								<img src="img/portfolio/pickpon/image7.jpg" alt="" style="width:100%">
-							  </div>
-
-							  <div class="mySlides">
-								<div class="numbertext">6 / 6</div>
-								<img src="img/portfolio/pickpon/image8.jpg" alt="" style="width:100%">
-							  </div>
-
-							  <a class="prev" onclick="plusSlides(-1)">❮</a>
-							  <a class="nexta" onclick="plusSlides(1)">❯</a>
-
-							  <div class="caption-container">
-								<p id="caption"></p>
-							  </div>
-
-							  <div class="row">
-								<div class="column">
-								  <img class="demo cursor" src="img/portfolio/pickpon/image0.jpg" style="width:100%" onclick="currentSlide(1)" alt="Team 3 crew">
-								</div>
-								<div class="column">
-								  <img class="demo cursor" src="img/portfolio/pickpon/image2.jpg" style="width:100%" onclick="currentSlide(2)" alt="Playtesting">
-								</div>
-								<div class="column">
-								  <img class="demo cursor" src="img/portfolio/pickpon/image5.jpg" style="width:100%" onclick="currentSlide(3)" alt="Artists testing the game">
-								</div>
-								<div class="column">
-								  <img class="demo cursor" src="img/portfolio/pickpon/image4.jpg" style="width:100%" onclick="currentSlide(4)" alt="Playtesting Session">
-								</div>    
-								<div class="column">
-								  <img class="demo cursor" src="img/portfolio/pickpon/image7.jpg" style="width:100%" onclick="currentSlide(5)" alt="Jury Day">
-								</div>
-								<div class="column">
-								  <img class="demo cursor" src="img/portfolio/pickpon/image8.jpg" style="width:100%" onclick="currentSlide(6)" alt="Live Gameplay screenshot">
-								</div>
-							  </div>
-							</div>
-							<br>
-						<p>John Walden, me and Josefine Folkenson - FG 18 | Game Design</p>
-						
 						<br><br>
-						
-						
-						
-						<p><strong>Special Thanks for Cecilia Nordin (Character Artist at Avalanche Studios), Henrik Alfredsson (Senior Game Designer at Toca Boca) and Manuel Llanes (Design Director at DICE) for playing and feedback our game.</strong></p>
-								
-						<br>
+							
+							<button class="collapsible">Click here to see the scripts setup</button>
+									<div class="content">
+										
+										<div class="name_holder">
+											<br>
+											<h3>Crowd Generator</h3>
+											<br>
+											<p>A simple script for Level Designers and Artist. Quickly create a circular crowd around the arena with customizable radius, scale and size parameters</p>
+											<br>
+										</div>
+
+												<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/e3bliwm_" scrolling="no" allowfullscreen></iframe>
+
+										
+										<div class="name_holder">
+											<br>
+											<h3>Custom Directional Light Actor</h3>
+											<br>
+											<p>A simple construction script that allowed 3D Artists to test their cell shader results on level</p>
+											<br>
+										</div>
+
+												<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/o88sj8ru" scrolling="no" allowfullscreen></iframe>
+
+										</div>
+							<br><br>
+					
 						
 						<div class="pagination_wrap">
 							<div class="previ">
