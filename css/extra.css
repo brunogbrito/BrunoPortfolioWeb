@@ -162,6 +162,49 @@
   animation: fadeEffect 0.2s; 
 }
 
+/* ----------- Image Hover -------------*/
+
+.hover_container {
+  position: relative;
+  width: 50%;
+}
+
+.hover_image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hover_overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .1s ease;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.hover_container:hover .overlay {
+  opacity: 1;
+}
+
+.hover_text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
 
 @charset "utf-8";
 /* CSS Document */

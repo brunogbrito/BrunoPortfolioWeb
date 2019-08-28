@@ -1249,11 +1249,11 @@ img.svg{
 			box-sizing: border-box; /* Opera/IE 8+ */
 }
 .arlo_tm_portfolio_list > li{
-	width:33.3333%;
+	width:100%;
 	float:left;
 	position:relative;
 	margin: 0px 0px 30px 0px;
-	padding-left: 30px;
+	padding-top: 30px;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
