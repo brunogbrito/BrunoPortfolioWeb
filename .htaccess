@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} ^brunobrito\.se$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.brunobrito\.se$
+RewriteRule .* https://brunobrito.se%{REQUEST_URI} [R=301,L]
