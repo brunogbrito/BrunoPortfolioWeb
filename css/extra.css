@@ -1,4 +1,6 @@
-/* ----------------------------- COLLAPSIBLE BUTTON --------------------------------- */
+@charset "utf-8";
+
+/* CSS Document *//* ----------------------------- COLLAPSIBLE BUTTON --------------------------------- */
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
   background-color: #333;
@@ -181,11 +183,9 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
   width: 100%;
   opacity: 0;
   transition: .05s ease;
-  background-color: rgba(0,0,0,0.75);
 }
 
 .hover_container:hover .hover_overlay {
@@ -207,8 +207,7 @@
 
 
 
-@charset "utf-8";
-/* CSS Document */
+
 
 @keyframes fadeEffect {
   from {opacity: 0;}
