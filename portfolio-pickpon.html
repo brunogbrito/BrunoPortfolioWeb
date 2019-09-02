@@ -118,7 +118,7 @@
 				<div class="arlo_tm_portfolio_single_wrap">
 					<div class="container">
 						<div class="arlo_tm_title_holder news">
-								<h3>PickPon Game</h3>
+								<h3>PickPon</h3>
 								<span>November 4, 2018</span>
 							</div>
 						<div class="details_wrap">
@@ -144,6 +144,10 @@
 											<span class="first">Development Time: </span>
 											<span class="second">2 weeks</span>
 										</li>
+										<br>
+										<li>
+											<span class="first">*Controllers are required</span>
+										</li>
 									</ul>
 								</div>
 								<br>
@@ -157,44 +161,84 @@
 							</div>
 
 							<div class="rightbox">
+								<div id="muteYouTubeVideoPlayer">
+
+<script async src="https://www.youtube.com/iframe_api"></script>
+<script>
+ function onYouTubeIframeAPIReady() {
+  var player;
+  player = new YT.Player('muteYouTubeVideoPlayer', {
+    videoId: 'VGt2ouql3ps', // YouTube Video ID
+    width: 560,               // Player width (in px)
+    height: 315,              // Player height (in px)
+    playerVars: {
+      autoplay: 1,        // Auto-play the video on load
+      controls: 1,        // Show pause/play buttons in player
+      showinfo: 0,        // Hide the video title
+      modestbranding: 1,  // Hide the Youtube Logo
+      loop: 1,            // Run the video in a loop
+	  playlist: 'VGt2ouql3ps',
+      fs: 0,              // Hide the full screen button
+      cc_load_policy: 0, // Hide closed captions
+      iv_load_policy: 3,  // Hide the Video Annotations
+      autohide: 0         // Hide video controls when playing
+    },
+    events: {
+      onReady: function(e) {
+        e.target.mute();
+      }
+    }
+  });
+ }
+
+ // Written by @labnol 
+</script>
+									
+								</div>
+							</div>
+							
+						</div>
+						
+						<h2>Concept</h2>
+						<br><br>
+
 								<p><strong>PickPon is a wild player versus player arena battle game for 2-4 players.</strong></p>
 								<br>
 									Face off against your friends in an intense and crazy showdown where being the fastest and smartest collector is the name of the game. Compete to pick up the most items before the timer runs out, but be careful! The other competitors can steal your items before you deposit them in your zone!
 								<br>
 									There are many different ways to play to get to the top, but only one can win the collectorbot championship!
-								<p><br>
-									<strong>*Controllers are required</strong></p>
-							</div>
-							
-						</div>
-						
+								<p>
+									
+						<br><br>
+
 						<div class="details_wrap">
 						
 							<div class="leftbox">
 								<div class="name_holder">
-									<h3>My Roles and Responsibilities</h3>
+									<h3>Roles and Responsibilities</h3>
 								</div>
 									<div class="short_list">
 										<ul>
 											<li>
-												<span class="first">Project Manager</span>
+												<span class="first"><h6><strong>Project Manager</strong></h6></span>
 												<br><p>Version control, Naming convention, Team management and communication</p>
 											</li>
 											<br>
 											<li>
-												<span class="first">Multiplayer/Gameplay Scripter</span>
+												<span class="first"><h6><strong>Multiplayer/Gameplay - C++/Blueprints</strong></h6></span>
 												<br><p>Setup local multiplayer and gameplay logic. Created in editor scripts to help other artists and designers</p>
 											</li>
 											<br>
 											<li>
-												<span class="first">UI/Menu Scripter</span>
+												<span class="first"><h6><strong>UI/Menu Scripter - C++/Blueprints</strong></h6></span>
 												<br><p>Setup main menu, character selection and UI</p>
 											</li>
 										</ul>
 								</div>
 							</div>	
 							<div class="rightbox">
-								<iframe width="540" height="320" src="https://www.youtube.com/embed/VGt2ouql3ps" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+																
+
 							</div>
 						</div>
 						<h2>Project Architecture</h2>
@@ -213,7 +257,7 @@
 
 										<!-- Tab content -->
 										<div id="ProjectFlowchart" class="tabcontent">
-											<div style="width: 390px; height: 250px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:390px; height:250px" src="https://www.lucidchart.com/documents/embeddedchart/0c081189-3404-4ddc-8f2c-861dd6e4ab13" id="rSgKnKsdr00z"></iframe></div>
+											<img src="img/portfolio/pickpon/Project_Flowchart.png" alt="Project Diagram"/>
 										</div>
 
 										<div id="NameConvention" class="tabcontent">
@@ -265,21 +309,25 @@
 											<div class="short_list">
 												<ul>
 													<li>
-														<span class="first">Game Mode:</span>
+														<span class="first"><strong>Game Mode:</strong></span>
 														<p>Controls game state, Spawn characters, Scoring system, Map Transition</p>
 													</li>
+													<br>
 													<li>
 														<span class="first">Game Instance:</span>
 														<p>Holds players information for map transitions</p>
 													</li>
+													<br>
 													<li>
 														<span class="first">Player Controller:</span>
 														<p>Input logic for MainMenu, Lobby and UI</p>
 													</li>
+													<br>
 													<li>
 														<span class="first">Pawn:</span>
 														<p>Input logic for gameplay, general pawn logic</p>
 													</li>
+													<br>
 													<li>
 														<span class="first">Actors:</span>
 														<p>Other gameplay logic that might communicate with Game Mode or Pawn class</p>
