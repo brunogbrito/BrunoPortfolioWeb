@@ -237,7 +237,8 @@
 								</div>
 							</div>	
 							<div class="rightbox">
-																
+								<video autoplay loop muted playsinline width="100%" height="auto">
+  														<source src="img/portfolio/pickpon/pickpon_video_04.mp4" type="video/mp4"></video>				
 
 							</div>
 						</div>
@@ -309,27 +310,27 @@
 											<div class="short_list">
 												<ul>
 													<li>
-														<span class="first"><strong>Game Mode:</strong></span>
+														<span class="first"><h4>Game Mode:</h4></span>
 														<p>Controls game state, Spawn characters, Scoring system, Map Transition</p>
 													</li>
 													<br>
 													<li>
-														<span class="first">Game Instance:</span>
+														<span class="first"><h4>Game Instance:</h4></span>
 														<p>Holds players information for map transitions</p>
 													</li>
 													<br>
 													<li>
-														<span class="first">Player Controller:</span>
+														<span class="first"><h4>Player Controller:</h4></span>
 														<p>Input logic for MainMenu, Lobby and UI</p>
 													</li>
 													<br>
 													<li>
-														<span class="first">Pawn:</span>
+														<span class="first"><h4>Pawn:</h4></span>
 														<p>Input logic for gameplay, general pawn logic</p>
 													</li>
 													<br>
 													<li>
-														<span class="first">Actors:</span>
+														<span class="first"><h4>Actors:</h4></span>
 														<p>Other gameplay logic that might communicate with Game Mode or Pawn class</p>
 													</li>
 												</ul>
@@ -343,28 +344,35 @@
 								<p>I scripted the local multiplayer system for <strong>2-4 players, splitted screens gameplay</strong>. I started creating a <strong>lobby</strong> where players can join the local session by pressing "Start". The controller and pawn information gets stored in the <strong>Game Instance class for map transitions.</strong> After loading the gameplay level, <strong>Game Mode class</strong> retrieve that GI information and <strong>sets player pawns to their correct player controller</strong>, and set the conditions to start the match <strong>activating the camera Split-screen mode</strong></p>
 								<br>
 								
-													<div class="container">
-								<center>
-								<img src="img/portfolio/pickpon/lobby.gif" alt="Lobby"/> 
-								<img src="img/portfolio/pickpon/gameplay.gif" alt="Gameplay"/>
-								</center>
-							</div>
-						<br>
-						
-						<button class="collapsible">Click here to see the code snipet and blueprints</button>
-						<div class="content">
-						
+						<div class="details_wrap">
+														
+							<div class="leftbox">
+								
+								
 								<div class="name_holder">
 									<br>
 									<h3>Lobby</h3>
 									<br>
 									<p>The lobby system is composed by 3 Events. The <strong>"SpawnCharacter"</strong> event replaces an empty dummy pawn to a playable character pawn and assigns it to the controller which joined the session. <strong>"DespawnCharacter"</strong> does the opposite logic from "SpawnCharacter". <strong>"DespawnAllMenuCharacters"</strong> resets all the pawns to the dummy. It's triggered when players go back to the main menu or after a game match </p>
 									<br>
+									<button class="collapsible" onclick="showDiv('lobby')"> Click here to see: C++/blueprints</button>
 								</div>
-
-										<div id="lobby" class="tabcontent1">
+							</div>
+							<div class="rightbox">
+																<video autoplay loop muted playsinline width="100%" height="auto">
+  														<source src="img/portfolio/pickpon/pickpon_video_04.mp4" type="video/mp4"></video>
+							</div>
+							
+											</div>		
+						
+						<div id="lobby" class="content">
+						
 											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
-										</div>
+				
+						</div>
+
+
+
 							
 								<div class="name_holder">
 									<br>
@@ -404,8 +412,15 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
 								
 
 											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/5ps1lzvb" scrolling="no" allowfullscreen></iframe>
-				
-						</div>
+														
+								<center>
+								<img src="img/portfolio/pickpon/lobby.gif" alt="Lobby"/> 
+								<img src="img/portfolio/pickpon/gameplay.gif" alt="Gameplay"/>
+								</center>
+							</div>
+						<br>
+						
+
 						<br>
 
 						<br><br><br>

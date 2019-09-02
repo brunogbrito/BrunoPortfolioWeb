@@ -759,6 +759,7 @@ function arlo_tm_hamburger(){
 // ---------------------------------------------------
 // ---------------  COLLAPSABLE BUTTON  -----------------------
 // -----------------------------------------------------
+/*
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
@@ -772,7 +773,7 @@ for (i = 0; i < coll.length; i++) {
       content.style.maxHeight = content.scrollHeight + "px";
     } 
   });
-}
+} */
 
 // ------------------ Architecture Horizontal Tabs Row -----------------//
 
@@ -798,6 +799,34 @@ function openArchitecture(evt, archName) {
 }
 
 document.getElementById("defaultOpen").click();
+
+// ------------------- Buttom Reveal --------------------//
+
+function showDiv(divName) {
+	
+  var content = document.getElementById(divName);
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  
+
+ /* tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  divlinks = document.getElementsByClassName("collapsible");
+  for (i = 0; i < divlinks.length; i++) {
+    divlinks[i].className = divlinks[i].className.replace(" active", "");
+  }
+	if(evt.currentTarget.className.hasAttribute(" active")){
+		evt.style.display = "none";
+		evt.classname.replace(" active", "");
+	} else{
+  document.getElementById(divName).style.display = "block";
+  evt.currentTarget.className += " active"; */
+}
 
 
 // ------------------ Second Tab Horizontal Tabs Row -----------------//
@@ -856,3 +885,4 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
+
