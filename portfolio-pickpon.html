@@ -360,29 +360,52 @@
 							</div>
 							<div class="rightbox">
 																<video autoplay loop muted playsinline width="100%" height="auto">
-  														<source src="img/portfolio/pickpon/pickpon_video_04.mp4" type="video/mp4"></video>
+  														<source src="img/portfolio/pickpon/pickpon_video_05.mp4" type="video/mp4"></video>
 							</div>
 							
-											</div>		
+						</div>		
 						
-						<div id="lobby" class="content">
-						
-											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
-				
-						</div>
+							<div id="lobby" class="content">
 
+								<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
 
+							</div>
 
 							
+							<div class="details_wrap">
+														
+							<div class="leftbox">
+								
+								
 								<div class="name_holder">
 									<br>
 									<h3>Camera Splitscreen C++ Function</h3>
 									<br>
-									<p>To enable/disable the camera splitscreen in runtime I created this <strong>custom C++ class</strong> which allows scripting this functionality in Blueprints </p>
+									<p>To enable/disable the camera splitscreen in runtime I created a <strong>custom C++ class</strong> which allows scripting this functionality in Blueprints </p>
+									<br><br>
+									<h3>2-4 players setup</h3>
+	
+									<p>This function runs when the match starts, it spawn player characters and assign them to their controllers, It also remove non active players and controllers </p>
+									<br>
+									<button class="collapsible" onclick="showDiv('splitscreen')"> Click here to see: C++/blueprints</button>
+								</div>
+							</div>
+							<div class="rightbox">
+																<video autoplay loop muted playsinline width="100%" height="auto">
+  														<source src="img/portfolio/pickpon/pickpon_video_06.mp4" type="video/mp4"></video>
+							</div>
+							
+						</div>		
+						
+							<div id="splitscreen" class="content">
+								
+								<div class="name_holder">
+									<br>
+									<h3>Camera Splitscreen C++ Function</h3>
 									<br>
 								</div>
-											
-											<pre style"width:300px" class="line-numbers"><code class="language-cpp">//.h
+
+<pre style"width:300px" class="line-numbers"><code class="language-cpp">//.h
  
 	UFUNCTION(BlueprintCallable, meta = (WorldContext = "WorldObjectContext"))
 	static void SetCameraSplitscreen(bool bIsDisabled, UObject* WorldObjectContext);
@@ -406,22 +429,12 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
 									<br>
 									<h3>2-4 players setup</h3>
 									<br>
-									<p>This function runs when the match starts, it spawn player characters and assign them to their controllers, It also remove non active players and controllers </p>
-									<br>
 								</div>
 								
 
 											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/5ps1lzvb" scrolling="no" allowfullscreen></iframe>
-														
-								<center>
-								<img src="img/portfolio/pickpon/lobby.gif" alt="Lobby"/> 
-								<img src="img/portfolio/pickpon/gameplay.gif" alt="Gameplay"/>
-								</center>
 							</div>
-						<br>
-						
-
-						<br>
+							
 
 						<br><br><br>
 								<h2>Editor Scripts</h2>
@@ -429,41 +442,72 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
 							<p>One of my favorite tasks was creating scripting tools for other designers to quickly create an crowd arena and 3D artists integrate directional light system with their shader inside the engine.</p>
 						<br>
 							
-						<video width="560" height="320" controls>
-  						<source src="img/portfolio/pickpon/crowd script.mp4" type="video/mp4">
-						Your browser does not support the video tag.
-						</video> 
-						<video width="560" height="320" controls>
-  						<source src="img/portfolio/pickpon/light+shader.mp4" type="video/mp4">
-						Your browser does not support the video tag.
-						</video>
-						<br><br>
+						<div class="details_wrap">
+														
+							<div class="leftbox">
+								
+								
+								<div class="name_holder">
+									<br>
+										<h3>Crowd Generator</h3>
+										<br>
+										<p>A simple script for Level Designers and Artist. Quickly create a circular crowd around the arena with customizable radius, scale and size parameters</p>
+										<br>
+									<br>
+									<button class="collapsible" onclick="showDiv('crowd')"> Click here to see: C++/blueprints</button>
+								</div>
+							</div>
+							<div class="rightbox">
+																<video autoplay loop muted playsinline width="100%" height="auto">
+  														<source src="img/portfolio/pickpon/crowd script.mp4" type="video/mp4"></video>
+							</div>
 							
-							<button class="collapsible">Click here to see the scripts setup</button>
-									<div class="content">
-										
-										<div class="name_holder">
-											<br>
-											<h3>Crowd Generator</h3>
-											<br>
-											<p>A simple script for Level Designers and Artist. Quickly create a circular crowd around the arena with customizable radius, scale and size parameters</p>
-											<br>
-										</div>
-
-												<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/e3bliwm_" scrolling="no" allowfullscreen></iframe>
-
-										
-										<div class="name_holder">
-											<br>
-											<h3>Custom Directional Light Actor</h3>
+						</div>		
+						
+							<div id="crowd" class="content">
+								
+								<div class="name_holder">
+									<br>
+									<h3>Crowd Generator Script</h3>
+									<br>
+								</div>
+								
+								<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/e3bliwm_" scrolling="no" allowfullscreen></iframe>
+							</div>
+								
+						<div class="details_wrap">
+														
+							<div class="leftbox">
+								
+								
+								<div class="name_holder">
+									<br>
+										<h3>Custom Directional Light Actor</h3>
 											<br>
 											<p>A simple construction script that allowed 3D Artists to test their cell shader results on level</p>
 											<br>
-										</div>
-
-												<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/o88sj8ru" scrolling="no" allowfullscreen></iframe>
-
-										</div>
+									<br>
+									<button class="collapsible" onclick="showDiv('light')"> Click here to see: C++/blueprints</button>
+								</div>
+							</div>
+							<div class="rightbox">
+								<video autoplay loop muted playsinline width="100%" height="auto">
+  									<source src="img/portfolio/pickpon/light+shader.mp4" type="video/mp4"></video>
+							</div>
+							
+						</div>		
+						
+							<div id="light" class="content">
+								
+								<div class="name_holder">
+									<br>
+									<h3>Custom Directional Light Actor Script</h3>
+									<br>
+								</div>
+								
+								<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/o88sj8ru" scrolling="no" allowfullscreen></iframe>
+							</div>
+								
 							<br><br>
 					
 						
