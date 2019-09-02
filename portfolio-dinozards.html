@@ -85,7 +85,7 @@
 		<div class="arlo_tm_leftpart_wrap">
 			<div class="leftpart_inner">
 				<div class="logo_wrap">
-					<a href="#"><img src="img/logo/desktop-logo.png" alt="" /></a>
+					<a href="index.html"><img src="img/logo/desktop-logo.png" alt="" /></a>
 				</div>
 				<div class="menu_list_wrap">
 					<ul class="anchor_nav">
@@ -144,6 +144,10 @@
 											<span class="first">Development Time: </span>
 											<span class="second">7 weeks</span>
 										</li>
+										<br>
+										<li>
+											<span class="first">*Controllers are required</span>
+										</li>
 									</ul>
 								</div>
 								<br>
@@ -155,64 +159,89 @@
 											</ul>
 										</div>
 							</div>
-
-							<div class="rightbox">
-								<p><strong>Dinozards is a couch multiplayer party game with a battle royale twist</strong></p>
-								<br>
-									Dinozards is an arena based top down multiplayer brawler where you play as a Magical Dino-baby having to fight for its survival against other Dino Babies for the affection of your Wizard Father
-									The last Dino standing wins!
-								<br>
-									You can play 2-4 player Free for All or 2v2 Team Mode.
-								<p><br>
-									<strong>*Controllers are required</strong></p>
-							</div>
 							
-						</div>
-						
-						<div class="details_wrap">
-						
-							<div class="leftbox">
-								<div class="name_holder">
-									<h3>My Roles and Responsibilities</h3>
+														<div class="rightbox">
+								<div id="muteYouTubeVideoPlayer">
+
+<script async src="https://www.youtube.com/iframe_api"></script>
+<script>
+ function onYouTubeIframeAPIReady() {
+  var player;
+  player = new YT.Player('muteYouTubeVideoPlayer', {
+    videoId: 'so0_GO0ZU1o', // YouTube Video ID
+    width: 560,               // Player width (in px)
+    height: 315,              // Player height (in px)
+    playerVars: {
+      autoplay: 1,        // Auto-play the video on load
+      controls: 1,        // Show pause/play buttons in player
+      showinfo: 0,        // Hide the video title
+      modestbranding: 1,  // Hide the Youtube Logo
+      loop: 1,            // Run the video in a loop
+	  playlist: 'so0_GO0ZU1o',
+      fs: 0,              // Hide the full screen button
+      cc_load_policy: 0, // Hide closed captions
+      iv_load_policy: 3,  // Hide the Video Annotations
+      autohide: 0         // Hide video controls when playing
+    },
+    events: {
+      onReady: function(e) {
+        e.target.mute();
+      }
+    }
+  });
+ }
+
+ // Written by @labnol 
+</script>
+									
 								</div>
-									<div class="short_list">
-										<ul>
-											<li>
-												<span class="first">Project Management</span>
-												<br><p>Scrum master, Team management and communication, Pitch presentation</p>
-											</li>
-											<br>
-											<li>
-												<span class="first">Game Design/Programming</span>
-												<br><p>Game core mechanics and gameloop design, Game systems and UI scripting</p>
-											</li>
-											<br>
-											<li>
-												<span class="first">Sound Design</span>
-												<br><p>Sound mixing, Gameplay audio scripting </p>
-											</li>
-										</ul>
-								</div>
-							</div>	
-							<div class="rightbox">
-								<center><iframe width="540" height="300" src="https://www.youtube.com/embed/so0_GO0ZU1o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 							</div>
 						</div>
 						
 						<h2>Concept</h2>
 						<br><br>
 
-
+								<p><strong>Dinozards is a couch multiplayer party game with a battle royale twist</strong></p>
+								<br>
+									Dinozards is an arena based top down multiplayer brawler where you play as a Magical Dino-baby having to fight for its survival against other Dino Babies for the affection of your Wizard Father The last Dino standing wins!
+								
+									<strong>You can play 2-4 player Free for All or 2v2 Team Mode.</strong>
+								<p><br>
 						
 									<p>We looked at succesful <strong>arena-type games</strong>. Games based on spells and crisp movement. This has exclusively been successful with a desktop, mouse and keyboard. We wanted to take this genre and turned it on its head, implementing it all into a <strong>couch co-op experience adding a battle royale twist.</strong></p>
 									
 						<br><br>
-
-							<center>
-								
-								<img src="img/portfolio/dinozards/dino_gif_03.gif" width="900" alt="Gameplay_01"/>
-							</center>	
-
+						
+						<div class="details_wrap">
+						
+							<div class="leftbox">
+								<div class="name_holder">
+									<h3>Roles and Responsibilities</h3>
+								</div>
+									<div class="short_list">
+										<ul>
+											<li>
+												<span class="first"><h6><strong>Project Management</strong></h6></span>
+												<br><p>Scrum master, Team management and communication, Pitch presentation</p>
+											</li>
+											<br>
+											<li>
+												<span class="first"><h6><strong>Game Design/Programming C#</strong></h6></span>
+												<br><p>Game core mechanics and gameloop design, Game systems and UI scripting</p>
+											</li>
+											<br>
+											<li>
+												<span class="first"><h6><strong>Sound Design</strong></h6></span>
+												<br><p>Sound mixing, Gameplay audio scripting </p>
+											</li>
+										</ul>
+								</div>
+							</div>	
+							<div class="rightbox">
+								<video autoplay loop muted playsinline width="100%" height="auto">
+  														<source src="img/portfolio/dinozards/dino_01.mp4" type="video/mp4"></video>	
+							</div>
+						</div>
 
 						<br><br>
 						<h2>Game Design - MDA</h2>
