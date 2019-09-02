@@ -14,11 +14,25 @@
   font-size: 15px;border-radius: 5px;
 }
 
+.collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #E3872D;
+  float: right;
+  margin-left: 5px;
+}
+
+.collapsible:active {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
   background-color: #E3872D;
   color: #111;
 }
+
+
 
 /* Style the collapsible content. Note: hidden by default */
 .content {
