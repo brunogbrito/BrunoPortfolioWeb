@@ -2424,6 +2424,9 @@ img.svg{
 /*	15) ARLO MEDIA QUERIES (FOR SMALL DEVIVES)
 /*---------------------------------------------------*/
 
+@media (max-width: 1880px) {
+
+}
 @media (max-width: 1400px) {
 	.arlo_tm_about_wrap .leftbox{padding-right: 0px;}
 }
@@ -2451,24 +2454,6 @@ img.svg{
 	.arlo_tm_about_wrap .author_wrap{flex-direction: column;align-items: baseline; }
 	.arlo_tm_about_wrap .leftbox{margin-bottom: 60px;width: 50%;}
 	.arlo_tm_about_wrap .rightbox{width: 100%;padding-left: 0px;}
-}
-@media (max-width: 768px) {
-	.arlo_tm_hero_header_wrap .name_holder h3{font-size: 40px;}
-	.arlo_tm_hero_header_wrap .text_typing p{font-size: 21px;}
-	.arlo_tm_title_holder h3{font-size: 45px;}
-	.arlo_tm_title_holder:before{top: -2px;}
-	.arlo_tm_services_wrap .list_wrap ul{margin: 0px;}
-	.arlo_tm_services_wrap .list_wrap ul li{width: 100%;padding-left: 0px;}
-	.arlo_tm_counter_list li{width: 50%;}
-	.arlo_tm_counter_list li .inner{padding: 45px 15px 48px 15px;}
-	.arlo_tm_portfolio_list > li{width: 50%;}
-	.arlo_tm_list_wrap > ul.total{margin: 0px;}
-	.arlo_tm_list_wrap > ul.total > li{width: 100%;padding-left: 0px;}
-	.arlo_tm_about_wrap .about_short_contact_wrap ul li{width: 100%;}
-	.arlo_tm_totop{right: 20px;bottom: 10px;}
-	.arlo_tm_totop.opened{bottom: 20px;}
-	.arlo_tm_preloader{display: none;}
-	.arlo_tm_portfolio_single_wrap .title_holder h3{font-size: 45px;}
 }
 @media (max-width: 480px) {
 	.arlo_tm_hero_header_wrap .name_holder h3{font-size: 30px;}
