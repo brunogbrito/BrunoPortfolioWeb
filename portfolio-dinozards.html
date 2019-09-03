@@ -207,9 +207,6 @@
 								
 									<strong>You can play 2-4 player Free for All or 2v2 Team Mode.</strong>
 								<p><br>
-						
-									<p>We looked at succesful <strong>arena-type games</strong>. Games based on spells and crisp movement. This has exclusively been successful with a desktop, mouse and keyboard. We wanted to take this genre and turned it on its head, implementing it all into a <strong>couch co-op experience adding a battle royale twist.</strong></p>
-									
 						<br><br>
 						
 						<div class="details_wrap">
@@ -247,28 +244,155 @@
 						<h2>Game Design - MDA</h2>
 						<br><br>
 							
-						<p>//TODO core game play explanation here..</p>
+							<p>We looked at succesful <strong>arena-type games</strong>. Games based on spells and crisp movement. This has exclusively been successful with a desktop, mouse and keyboard. We wanted to take this genre and turned it on its head, implementing it all into a <strong>couch co-op experience adding a battle royale twist.</strong></p>
 						<br>
 							<div class="container">
-								
-								<img src="img/portfolio/dinozards/mda.png" alt="MDA"/> 
+								<img src="img/portfolio/dinozards/mda_01.png" alt="MDA"/>
+								<img src="img/portfolio/dinozards/mda_02.png" alt="MDA"/> 
+								<img src="img/portfolio/dinozards/mda_03.png" alt="MDA"/>
+								<img src="img/portfolio/dinozards/mda_04.png" alt="MDA"/> 
 								
 							</div>
-						
 
-						
-								
-								<h2>Battle Royale Storm</h2>
+								<h2>Programming C#</h2>
 								<br><br>
 								
-								<p>I scripted the local multiplayer system for <strong>2-4 players, splitted screens gameplay</strong>. I started creating a <strong>lobby</strong> where players can join the local session by pressing "Start". The controller and pawn information gets stored in the <strong>Game Instance class for map transitions.</strong> After loading the gameplay level, <strong>Game Mode class</strong> retrieve that GI information and <strong>sets player pawns to their correct player controller</strong>, and set the conditions to start the match <strong>activating the camera Split-screen mode</strong></p>
+								<p>During this project I programmed all the <strong>in-game UI, Menus, Camera, Game Manager</strong> and several world <strong>Gameplay Components</strong> using Visual Studio + Visual Assist. My priority was to focus on gameplay, building components that connects with the game loop and at the same time <strong>scalable</strong> in a way where other programmers and designers can use it or  continue work on it. </p>
 								<br>
+						
+												<div class="details_wrap">
+														
+							<div class="leftbox">
 								
-													<div class="container">
-								<center>
-								<img src="img/portfolio/dinozards/dino_gif_02.gif" alt="Lobby"/> 
-								<img src="img/portfolio/pickpon/gameplay.gif" alt="Gameplay"/>
-								</center>
+								<div class="name_holder">
+									<br>
+									<h3>Shrinking Storm</h3>
+									<br>
+									<p>The storm main goal is to <strong>inflict damage</strong> to characters outside its radius. But it also has other mechanics to add different dynamics to the gameplay: <strong>radius resizing, path following, movement speed, scale speed and intervals.</strong> It follows multiple random paths that can be easily created in a few seconds.
+									<br>
+									The storm system is composed by 3 components. <strong>Storm Path Follower, Storm Behavior, Storm Effect</strong> </p>
+									<br><br>
+									<button class="collapsible" onclick="showDiv('storm')"> Click here to see the code snipet - C#</button>
+								</div>
+							</div>
+							<div class="rightbox">
+								<video autoplay loop muted playsinline width="100%" height="auto">
+  									<source src="img/portfolio/pickpon/pickpon_video_05.mp4" type="video/mp4"></video>
+							</div>
+							
+						</div>		
+						
+							<div id="storm" class="content">
+								
+								<div class="name_holder">
+									<br>
+									<h3>Storm Path Follower</h3>
+									<br>
+								</div>
+
+<pre style"width:300px" class="line-numbers"><code class="language-cs">using PathCreation;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StormPathFollower : MonoBehaviour
+{
+    [SerializeField]
+    private List<PathCreator> pathCreatorList;
+
+    private float speed;
+
+    [SerializeField]
+    private bool alignRotation = false;
+
+    private StormBehavior stormInstance;
+
+    [SerializeField]
+    private PathCreator pathCreator;
+
+    public float distanceTraveled;
+
+    public void SetPath()
+    {
+        int myInt = Random.Range(0, pathCreatorList.Count);
+        pathCreator = pathCreatorList[myInt];
+    }
+
+    private void Awake()
+    {
+        stormInstance = FindObjectOfType<StormBehavior>();
+        speed = stormInstance.stormSpeed;
+    }
+
+    private void Update()
+    {
+        if (stormInstance.isMoving)
+            distanceTraveled += speed * Time.deltaTime;
+
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled); //Follows the path
+
+        if (alignRotation)
+        {
+            transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled); //Rotates toward the path
+        }
+    }
+}
+</code></pre>
+<br><br><br><br>
+
+								<div class="name_holder">
+									<br>
+									<h3>Storm Behavior</h3>
+									<br>
+								</div>
+
+<pre style"width:300px" class="line-numbers"><code class="language-cs">using PathCreation;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StormPathFollower : MonoBehaviour
+{
+    [SerializeField]
+    private List<PathCreator> pathCreatorList;
+
+    private float speed;
+
+    [SerializeField]
+    private bool alignRotation = false;
+
+    private StormBehavior stormInstance;
+
+    [SerializeField]
+    private PathCreator pathCreator;
+
+    public float distanceTraveled;
+
+    public void SetPath()
+    {
+        int myInt = Random.Range(0, pathCreatorList.Count);
+        pathCreator = pathCreatorList[myInt];
+    }
+
+    private void Awake()
+    {
+        stormInstance = FindObjectOfType<StormBehavior>();
+        speed = stormInstance.stormSpeed;
+    }
+
+    private void Update()
+    {
+        if (stormInstance.isMoving)
+            distanceTraveled += speed * Time.deltaTime;
+
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled); //Follows the path
+
+        if (alignRotation)
+        {
+            transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled); //Rotates toward the path
+        }
+    }
+}
+</code></pre>
+<br><br><br><br>
 							</div>
 						<br>
 						
@@ -388,7 +512,7 @@ void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* Wor
 					<div class="arlo_tm_footer_contact_wrapper_all">
 						<div class="arlo_tm_footer_wrap">
 							<div class="container">
-								<p>&copy; Copyright 2019. All Rights are Reserved.</p>
+								<!-- <p>&copy; Copyright 2019. All Rights are Reserved.</p> -->
 							</div>
 						</div>
 					</div>
