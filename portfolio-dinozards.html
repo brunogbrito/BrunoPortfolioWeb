@@ -247,7 +247,10 @@
 							<p>We looked at succesful <strong>arena-type games</strong>. Games based on spells and crisp movement. This has exclusively been successful with a desktop, mouse and keyboard. We wanted to take this genre and turned it on its head, implementing it all into a <strong>couch co-op experience adding a battle royale twist.</strong></p>
 						<br>
 							<div class="container">
-								<img src="img/portfolio/dinozards/mda_01.png" alt="MDA"/>
+								<img src="img/portfolio/dinozards/mda_01.png" alt="MDA"/><br><br>
+<br>
+
+
 								<img src="img/portfolio/dinozards/mda_02.png" alt="MDA"/> 
 								<img src="img/portfolio/dinozards/mda_03.png" alt="MDA"/>
 								<img src="img/portfolio/dinozards/mda_04.png" alt="MDA"/> 
@@ -277,7 +280,7 @@
 							</div>
 							<div class="rightbox">
 								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/pickpon/pickpon_video_05.mp4" type="video/mp4"></video>
+  									<source src="img/portfolio/dinozards/dino_02.mp4" type="video/mp4"></video>
 							</div>
 							
 						</div>		
@@ -290,7 +293,8 @@
 									<br>
 								</div>
 
-<pre style"width:300px" class="line-numbers"><code class="language-cs">using PathCreation;
+<pre style"width:300px" class="line-numbers"><code class="language-cs">
+using PathCreation;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -396,63 +400,142 @@ public class StormPathFollower : MonoBehaviour
 							</div>
 						<br>
 						
-						<button class="collapsible">Click here to see the code snipet and blueprints</button>
-						<div class="content">
-						
-								<div class="name_holder">
-									<br>
-									<h3>Lobby</h3>
-									<br>
-									<p>The lobby system is composed by 3 Events. The <strong>"SpawnCharacter"</strong> event replaces an empty dummy pawn to a playable character pawn and assigns it to the controller which joined the session. <strong>"DespawnCharacter"</strong> does the opposite logic from "SpawnCharacter". <strong>"DespawnAllMenuCharacters"</strong> resets all the pawns to the dummy. It's triggered when players go back to the main menu or after a game match </p>
-									<br>
-								</div>
-
-										<div id="lobby" class="tabcontent1">
-											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/ynpvadal" scrolling="no" allowfullscreen></iframe>
-										</div>
-							
-								<div class="name_holder">
-									<br>
-									<h3>Camera Splitscreen C++ Function</h3>
-									<br>
-									<p>To enable/disable the camera splitscreen in runtime I created this <strong>custom C++ class</strong> which allows scripting this functionality in Blueprints </p>
-									<br>
-								</div>
-											
-											<pre style"width:300px" class="line-numbers"><code class="language-cpp">//.h
- 
-	UFUNCTION(BlueprintCallable, meta = (WorldContext = "WorldObjectContext"))
-	static void SetCameraSplitscreen(bool bIsDisabled, UObject* WorldObjectContext);
- 
-//.cpp
- 
-void ASplitScreenController::SetCameraSplitscreen(bool bIsDisabled, UObject* WorldObjectContext)
-{
-	if (!WorldObjectContext)
-	return;
-	
-	UWorld* CurrentWorld = Cast<UWorld>(WorldObjectContext->GetWorld());
-	if (CurrentWorld)
-	{
-		CurrentWorld->GetGameViewport()->SetDisableSplitscreenOverride(bIsDisabled);
-	}
-
-}</code></pre>
-
-								<div class="name_holder">
-									<br>
-									<h3>2-4 players setup</h3>
-									<br>
-									<p>This function runs when the match starts, it spawn player characters and assign them to their controllers, It also remove non active players and controllers </p>
-									<br>
-								</div>
+						<div class="details_wrap">
+														
+							<div class="leftbox">
 								
+								<div class="name_holder">
+									<br>
+									<h3>Gameplay Camera</h3>
+									<br>
+									<p>The storm main goal is to <strong>inflict damage</strong> to characters outside its radius. But it also has other mechanics to add different dynamics to the gameplay: <strong>radius resizing, path following, movement speed, scale speed and intervals.</strong> It follows multiple random paths that can be easily created in a few seconds.
+									<br>
+									The storm system is composed by 3 components. <strong>Storm Path Follower, Storm Behavior, Storm Effect</strong> </p>
+									<br><br>
+									<button class="collapsible" onclick="showDiv('storm')"> Click here to see the code snipet - C#</button>
+								</div>
+							</div>
+							<div class="rightbox">
+								<video autoplay loop muted playsinline width="100%" height="auto">
+  									<source src="img/portfolio/dinozards/dino_02.mp4" type="video/mp4"></video>
+							</div>
+							
+						</div>		
+						
+							<div id="storm" class="content">
+								
+								<div class="name_holder">
+									<br>
+									<h3>Storm Path Follower</h3>
+									<br>
+								</div>
 
-											<iframe frameborder="0" style="width:1280px; height:380px" src="https://blueprintue.com/render/5ps1lzvb" scrolling="no" allowfullscreen></iframe>
-				
-						</div>
-						<br>
+<pre style"width:300px" class="line-numbers"><code class="language-cs">
+using PathCreation;
+using System.Collections.Generic;
+using UnityEngine;
 
+public class StormPathFollower : MonoBehaviour
+{
+    [SerializeField]
+    private List<PathCreator> pathCreatorList;
+
+    private float speed;
+
+    [SerializeField]
+    private bool alignRotation = false;
+
+    private StormBehavior stormInstance;
+
+    [SerializeField]
+    private PathCreator pathCreator;
+
+    public float distanceTraveled;
+
+    public void SetPath()
+    {
+        int myInt = Random.Range(0, pathCreatorList.Count);
+        pathCreator = pathCreatorList[myInt];
+    }
+
+    private void Awake()
+    {
+        stormInstance = FindObjectOfType<StormBehavior>();
+        speed = stormInstance.stormSpeed;
+    }
+
+    private void Update()
+    {
+        if (stormInstance.isMoving)
+            distanceTraveled += speed * Time.deltaTime;
+
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled); //Follows the path
+
+        if (alignRotation)
+        {
+            transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled); //Rotates toward the path
+        }
+    }
+}
+</code></pre>
+<br><br><br><br>
+
+								<div class="name_holder">
+									<br>
+									<h3>Storm Behavior</h3>
+									<br>
+								</div>
+
+<pre style"width:300px" class="line-numbers"><code class="language-cs">using PathCreation;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StormPathFollower : MonoBehaviour
+{
+    [SerializeField]
+    private List<PathCreator> pathCreatorList;
+
+    private float speed;
+
+    [SerializeField]
+    private bool alignRotation = false;
+
+    private StormBehavior stormInstance;
+
+    [SerializeField]
+    private PathCreator pathCreator;
+
+    public float distanceTraveled;
+
+    public void SetPath()
+    {
+        int myInt = Random.Range(0, pathCreatorList.Count);
+        pathCreator = pathCreatorList[myInt];
+    }
+
+    private void Awake()
+    {
+        stormInstance = FindObjectOfType<StormBehavior>();
+        speed = stormInstance.stormSpeed;
+    }
+
+    private void Update()
+    {
+        if (stormInstance.isMoving)
+            distanceTraveled += speed * Time.deltaTime;
+
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled); //Follows the path
+
+        if (alignRotation)
+        {
+            transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled); //Rotates toward the path
+        }
+    }
+}
+</code></pre>
+<br><br><br><br>
+							</div>
+						
 						<br><br><br>
 								<h2>Editor Scripts</h2>
 						<br><br>
