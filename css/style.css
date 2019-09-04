@@ -162,11 +162,10 @@ img.svg{
 .arlo_tm_leftpart_wrap.opened{left: -300px;}
 .arlo_tm_leftpart_wrap .logo_wrap{
 	background-color: #262626;
-	padding: 50px 20px;
+	padding: 25px 10px;
 	width: 100%;
 	float: left;
 	text-align: center;
-	margin-bottom: 50px;
 	border-bottom: 1px solid rgba(255,255,255,.1);
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -178,6 +177,8 @@ img.svg{
 	height: auto;
 	clear: both;
 	float: left;
+    margin-top: 50px;
+	margin-bottom: 50px;
 	padding: 0px 20px 0px 60px;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
