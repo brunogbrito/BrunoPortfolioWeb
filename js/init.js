@@ -245,6 +245,35 @@ function arlo_tm_portfolio(){
 	}
 }
 
+function update_portfolio(){
+	
+
+		// Needed variables
+		var list 		 = jQuery('.arlo_tm_portfolio_list');
+		var filter		 = jQuery('.arlo_tm_portfolio_filter');
+
+		if(filter.length){
+			// Isotope Filter 
+				var selector = '.project';
+				list.isotope({ 
+					filter				: selector,
+					animationOptions	: {
+						duration			: 750,
+						easing				: 'linear',
+						queue				: false
+					}
+				});
+				return false;
+			}
+
+			// Change active element class
+				filter.find('a').removeClass('current');
+				jQuery(this).addClass('current');
+				return false;
+}
+
+update_portfolio();
+
 function arlo_tm_projects() {
 	
 	"use strict";
@@ -267,7 +296,6 @@ function arlo_tm_projects() {
 		});
 	});
 }
-
 
 // -----------------------------------------------------
 // ------------    ANCHOR NAVIGATION    ----------------
