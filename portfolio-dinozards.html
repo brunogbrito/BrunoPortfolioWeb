@@ -277,6 +277,12 @@
 									<p>The storm main goal is to <strong>inflict damage</strong> to characters outside its radius. But it also has other mechanics to add different dynamics to the gameplay: <strong>radius resizing, path following, movement speed, scale speed and intervals.</strong> It follows multiple random paths that can be easily created in a few seconds.
 									<br>
 									The storm system is composed by 3 components. <strong>Storm Path Follower, Storm Behavior, Storm Effect</strong> </p>
+									<br>
+									<div class="about_short_contact_wrap">
+										<li>
+									<span><a href="https://www.artstation.com/artwork/DxoGxO">VFX by Jacob Stenberg</a></span>
+											</li>
+									</div>
 									<br><br>
 									<button class="collapsible" onclick="showDiv('storm')">See the C# scripts</button>
 								</div>
@@ -293,6 +299,8 @@
 								<div class="name_holder">
 									<br>
 									<h3>Storm Path Follower</h3>
+									<br>
+									<p>This component allows designers to create multiple storm paths. Each match it randomly picks one of the paths</p>
 									<br>
 								</div>
 
@@ -349,6 +357,8 @@ public class StormPathFollower : MonoBehaviour
 								<div class="name_holder">
 									<br>
 									<h3>Storm Behavior</h3>
+									<br>
+									<p>The Storm Behavior component is responsible for the storm movement, scale shrinking and damage check. Designers can script different actions intervals, setting new movement speed, shrinking speed and timers</p>
 									<br>
 								</div>
 
@@ -652,6 +662,8 @@ public class StormBehavior : MonoBehaviour
 								<div class="name_holder">
 									<br>
 									<h3>Storm Effect</h3>
+									<br>
+									<p>This component checks if the player character is outside the storm range, provoking damage to it when that condition is true.</p>
 									<br>
 								</div>
 
