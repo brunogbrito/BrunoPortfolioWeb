@@ -21,7 +21,8 @@
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/prism.css" />
 <link rel="stylesheet" type="text/css" href="css/extra.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <!--[if lt IE 9]> <script type="text/javascript" src="js/modernizr.custom.js"></script> <![endif]-->
 <!-- /STYLES -->
 
@@ -150,6 +151,10 @@
 											<span class="first">Development Time: </span>
 											<span class="second">4 weeks</span>
 										</li>
+										<li>
+											<span class="first">Team Size: </span>
+											<span class="second">12 developers</span>
+										</li>
 										<br>
 										<li>
 											<span class="first">*Microfone is required</span>
@@ -171,7 +176,7 @@
 							</div>
 						</div>
 						
-						<h2>Concept</h2>
+						<h1>Concept</h1>
 						<br><br>
 
 								<p>Rest A-Shored is a voice recognition simulation tech demo. In this game you <strong>literally talk to the characters</strong> helping them to survive and possibly escape the island. In this project we brought the <strong>emergent game-play experience</strong> through the way you play the game. Instead using keyboards or game-pads I thought how interesting could be to <strong>guide the player with your voice.</strong> 
@@ -207,12 +212,12 @@
 							</div>	
 							<div class="rightbox">
 								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/restashored/rest_02.mp4" type="video/mp4"></video>	
+  									<source src="img/portfolio/restashored/rest_01.mp4" type="video/mp4"></video>	
 							</div>
 						</div>
 
 						<br><br>
-						<h2>Tech Design</h2>
+						<h1>Tech Design</h1>
 						<br><br>
 							
 							<p>There are a lot of voice recognition/speech to text services out there <strong>(Microsoft, IBM, Alexa, Google, etc).</strong> On my research I found <a href="https://wiki.unrealengine.com/Speech_Recognition_Plugin" target="_blank"><span>Sphinx-UE4</span></a> speech recognition plugin, it supports blueprint scripting which makes very easy to prototype. The plugin doesn’t offer the best voice recognition accuracy but for an 4 week project it was the best choice</p>
@@ -230,7 +235,8 @@
 										Second: I built basic set of <strong>key phrases and functions</strong> binding them with simple character functionalities such as <strong>movement and jumping</strong><br><br>
 										Third: I created a very simple level environment to <strong>play-test</strong> </p>
 									<br>
-									<br><br>
+									<p>In your right my colleague Karl Mörtberg is testing the prototype :)</p>
+									<br>
 									<button class="collapsible" onclick="showDiv('prototype')">See the blueprint</button>
 								</div>
 							</div>
@@ -292,10 +298,10 @@
 							</div>
 												
 												
-								<h2>Gameplay Scripts</h2>
+								<h1>Gameplay Scripts</h1>
 								<br><br>
 								
-								<p>//TODO</p>
+								<p>During this project I <strong>scripted several gameplay systems</strong> using tools and functions created by other programmers on the team. I also <strong>assisted artists and designers</strong> providing help with technical knowledge in Blueprints and general engine areas.</p>
 								<br>
 						<br>
 						
@@ -308,36 +314,91 @@
 									<br>
 									<h3>Character Gameplay Events</h3>
 									<br>
-									<p>//TODO</p>
-									<br><br>
-									<button class="collapsible" onclick="showDiv('character')">See the blueprints</button>
+									<p><strong>Inventory, Harvest, Equip, Store, Mood, Interact and Body Temperature</strong> are custom systems created by the programmers, They exposed events and functions so that designers can script character behavior logic in blueprints. I used all those components and functions in order to build all the character interactions and functionalities.</p>
+									<br>
+									<p>I also built an <strong>action randomizer system</strong>, which was necessary in order to "force" the player to do the correct action in case the speech voice recognition system fail to many times.</p>
+									<br>
+									<p><strong>Click on the images below to see the blueprints</strong></p>
 								</div>
 							</div>
 							<div class="rightbox">
 								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/restashored/rest_01.mp4" type="video/mp4"></video>
+  									<source src="img/portfolio/restashored/rest_02.mp4" type="video/mp4"></video>
 							</div>
 							
 						</div>		
-						
-							<div id="character" class="content">
+							
+<div class="row2">
+  <div class="column">
+    <img src="img/portfolio/restashored/Pickup_01.png" onclick="openModal();currentSlide(1)" class="hover-shadow">
+  </div>
+  <div class="column">
+    <img src="img/portfolio/restashored/OnUse_01.png" onclick="openModal();currentSlide(2)" class="hover-shadow">
+  </div>
+  <div class="column">
+    <img src="img/portfolio/restashored/GoTo_01.png" onclick="openModal();currentSlide(3)" class="hover-shadow">
+  </div>
+  <div class="column">
+    <img src="img/portfolio/restashored/GoTo_02.png" onclick="openModal();currentSlide(4)" class="hover-shadow">
+  </div>
+</div>
+
+<!-- The Modal/Lightbox -->
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <div class="mySlides">
+      <div class="numbertext">1 / 4</div>
+      <img src="img/portfolio/restashored/Pickup_01a.png" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">2 / 4</div>
+      <img src="img/portfolio/restashored/OnUse_01a.png" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">3 / 4</div>
+      <img src="img/portfolio/restashored/GoTo_01a.png" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">4 / 4</div>
+      <img src="img/portfolio/restashored/GoTo_02a.png" style="width:100%">
+    </div>
+
+    <!-- Next/previous controls -->
+    <a class="prev2" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next2" onclick="plusSlides(1)">&#10095;</a>
+
+    <!-- Caption text -->
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+
+    <!-- Thumbnail image controls -->
+    <div class="column">
+      <img class="demo" src="img/portfolio/restashored/Pickup_01a.png" onclick="currentSlide(1)" alt="PickUp Script">
+    </div>
+
+    <div class="column">
+      <img class="demo" src="img/portfolio/restashored/OnUse_01a.png" onclick="currentSlide(2)" alt="OnUse Script">
+    </div>
+
+    <div class="column">
+      <img class="demo" src="img/portfolio/restashored/GoTo_01a.png" onclick="currentSlide(3)" alt="GoTo Script">
+    </div>
+
+    <div class="column">
+      <img class="demo" src="img/portfolio/restashored/GoTo_02a.png" onclick="currentSlide(4)" alt="GoTo Script">
+    </div>
+  </div>
+</div>
+
 								
-								<div class="name_holder">
-									<br>
-									<h3>Multiple Target Camera</h3>
-									<br>
-								</div>
+<br><br><br><br><br><br>
 
-									<div class="images_list">
-										<ul>
-											<li>
-												<img src="img/portfolio/voicerecog/img_01.jpg" alt="" />
-											</li>
-										</ul>
-									</div>
-<br><br><br><br>
-
-		</div>
 						
 						
 						<div class="details_wrap">
@@ -346,16 +407,16 @@
 								
 								<div class="name_holder">
 									<br>
-									<h3>Camera Controller</h3>
+									<h2>Camera Controller</h2>
 									<br>
-									<p>//TODO</p>
+									<p>The camera its an important component for the gameplay experience. <br> Players should be able to <strong>move around and explore the island</strong> in order to achieve their goals in the game. <br><br>The Pawn class holds the camera functionality. The <strong>camera moves over the X and Y axis, zoom in/out and rotate over the Y axis.</strong> FOV settings are exposed for artists have the <strong>freedom to set their own settings</strong> according to the camera zoom</p>
 									<br><br>
 									<button class="collapsible" onclick="showDiv('camera')">See the blueprints</button>
 								</div>
 							</div>
 							<div class="rightbox">
-								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/restashored/rest_01.mp4" type="video/mp4"></video>
+								<br><br><video autoplay loop muted playsinline width="100%" height="auto">
+  									<source src="img/portfolio/restashored/rest_04.mp4" type="video/mp4"></video>
 							</div>
 							
 						</div>		
@@ -364,17 +425,11 @@
 								
 								<div class="name_holder">
 									<br>
-									<h3>Multiple Target Camera</h3>
+									<h3>Camera Controller Blueprint</h3>
 									<br>
 								</div>
 
-									<div class="images_list">
-										<ul>
-											<li>
-												<img src="img/portfolio/voicerecog/img_01.jpg" alt="" />
-											</li>
-										</ul>
-									</div>
+								<iframe style="width:1280px; height:580px" src="https://blueprintue.com/render/l0ljm2km" scrolling="no" allowfullscreen></iframe>
 <br><br><br><br>
 
 		</div>
@@ -385,10 +440,10 @@
 								
 								<div class="name_holder">
 									<br>
-									<h3>Tutorial and Quest System</h3>
+									<h2>Tutorial and Quest System</h2>
 									<br>
-									<p>//TODO</p>
-									<br><br>
+									<p>In order to <strong>track the player current objective progression</strong> and help them play the game in case the voice recognition fails too much I built an <strong>linear quest system.</strong><br><br> Each quest is an Actor containing the quest tracker logic. <strong>Player Controller class manages all the game quests</strong>. This was very useful to create all the <strong>game quests and the tutorial</strong>.</p>
+									<br>
 									<button class="collapsible" onclick="showDiv('quest')">See the blueprints</button>
 								</div>
 							</div>
