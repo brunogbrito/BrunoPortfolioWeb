@@ -207,11 +207,11 @@
 						<h2>Concept</h2>
 						<br><br>
 
-								<p>A simple <strong>online cooperative third person shooter prototype</strong>. This prototype was focused in experimenenting different tools for scripting in <strong>Unreal Engine (Angelscript)</strong>, <strong>online networking</strong> and <strong>gameplay scripting</strong>. </p> <br>							
+								<p>A simple <strong>online cooperative third-person shooter prototype</strong>. This prototype was focused on experimenting with different tools for scripting in <strong>Unreal Engine (Angelscript)</strong>, <strong>online networking</strong> and <strong>gameplay scripting</strong>. </p> <br>							
 						
 								<p><a href="https://angelscript.hazelight.se" target="_blank"><span>UnrealEngine-Angelscript</span></a> is a set of engine modifications and a plugin for UE4 that integrates a full-featured scripting language. <strong>It is actively developed and used by Hazelight</strong>, creators of A Way Out.</p>
 							<br>
-							<p>I wanted to give a try in this tool to learn more about it and also to prove that <strong>I can adapt to different tool sets.</strong></p><br>
+							<p>I wanted to give a try in this tool to learn more about it and also to prove that <strong>I can adapt to different toolsets.</strong></p><br>
 						
 								I used a simple prototype polygon asset pack to blockout the level.
 							<br>
@@ -232,7 +232,7 @@
 											<br>
 											<li>
 												<span class="first"><h6><strong>Online Multiplayer</strong></h6></span>
-												<br><p>I setup a dedicated server online multiplayer</p>
+												<br><p>I set up a dedicated server online multiplayer</p>
 											</li>
 											<br>
 											<li>
@@ -253,7 +253,7 @@
 								<h2>Rapid Prototyping</h2>
 								<br><br>
 								
-								<p>It took me 3 weeks to build this prototype, during this time I learned how to script using Angelscrit and how to script world events and character abilities working in a online environment. I </p>
+								<p>It took me 3 weeks to build this prototype, during this time I learned how to script world events and characters abilities using Angelsrcipt + Online Networking. </p>
 								<br>
 						
 												<div class="details_wrap">
@@ -262,17 +262,33 @@
 								
 								<div class="name_holder">
 									<br>
-									<h3>Character Replication</h3>
+									<h3>Level Design</h3>
 									<br>
-									<p>I started </p>
+									<p>The level is inspired by Stockholm subway stations <strong>Medborgarplatsen</strong> and <strong>Södra</strong>. I used a simple polygon asset pack to <strong>block out the entire level and train wagons</strong>. I chose 4 colors to categorize the block out assets. <br><strong>White: Floors</strong> <br><strong>Yellow: Walls</strong> <br><strong>Blue: Interactable or destroyable</strong> <br><strong>Red: Enemies or explosives</strong></p>
 									<br>
-									<div class="about_short_contact_wrap">
-										<li>
-									<span><a href="https://www.artstation.com/artwork/DxoGxO">VFX by Jacob Stenberg</a></span>
-											</li>
-									</div>
 									<br><br>
-									<button class="collapsible" onclick="showDiv('storm')">See the C# scripts</button>
+								</div>
+							</div>
+							<div class="rightbox">
+								<video autoplay loop muted playsinline width="100%" height="auto">
+  									<source src="img/portfolio/Coop/COOP_01.mp4" type="video/mp4"></video>
+							</div>
+							
+						</div>		
+						
+							
+						
+						<div class="details_wrap">
+														
+							<div class="leftbox">
+								
+								<div class="name_holder">
+									<br>
+									<h3>Character and Networking</h3>
+									<br>
+									<p>I decide to develop the character in <strong>third-person</strong>, it was a good challenge on learning how to <strong>replicate not only the character actions but also animations</strong>. The character class, character components and weapon were <strong>90% scripted in Angelscript and 10% in blueprints</strong>. The game UI was entirely scripted in blueprints.<br><br> Special thanks to Emanuel Axelsson for making the UI art assets :) </p>
+									<br><br>
+									<button class="collapsible" onclick="showDiv('camera')">See the code snipet</button>
 								</div>
 							</div>
 							<div class="rightbox">
@@ -282,578 +298,554 @@
 							
 						</div>		
 						
-							<div id="storm" class="content">
-								
-								<div class="name_holder">
-									<br>
-									<h3>Storm Path Follower</h3>
-									<br>
-									<p>This component allows designers to create multiple storm paths. Each match it randomly picks one of the paths</p>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using PathCreation;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class StormPathFollower : MonoBehaviour
-{
-    [SerializeField]
-    private List<PathCreator> pathCreatorList;
-
-    private float speed;
-
-    [SerializeField]
-    private bool alignRotation = false;
-
-    private StormBehavior stormInstance;
-
-    [SerializeField]
-    private PathCreator pathCreator;
-
-    public float distanceTraveled;
-
-    public void SetPath()
-    {
-        int myInt = Random.Range(0, pathCreatorList.Count);
-        pathCreator = pathCreatorList[myInt];
-    }
-
-    private void Awake()
-    {
-        stormInstance = FindObjectOfType<StormBehavior>();
-        speed = stormInstance.stormSpeed;
-    }
-
-    private void Update()
-    {
-        if (stormInstance.isMoving)
-            distanceTraveled += speed * Time.deltaTime;
-
-        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled); //Follows the path
-
-        if (alignRotation)
-        {
-            transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled); //Rotates toward the path
-        }
-    }
-}
-</code></pre>
-<br><br><br><br>
-
-								<div class="name_holder">
-									<br>
-									<h3>Storm Behavior</h3>
-									<br>
-									<p>The Storm Behavior component is responsible for the storm movement, scale shrinking and damage check. Designers can script different actions intervals, setting new movement speed, shrinking speed and timers</p>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using System.Collections.Generic;
-using UnityEngine;
-
-public class StormBehavior : MonoBehaviour
-{
-    private static StormBehavior instance;
-
-    private Transform circleTransform;
-
-    private Vector3 circleCurrentSize;
-
-    private Vector3 circleCurrentPosition;
-
-    private bool isStormFollowingPath;
-
-    private float shrinkingSpeed;
-
-    private StormPathFollower stormFollower;
-
-    private int listIndex;
-
-    private bool doneBroadcasting = false;
-
-    [HideInInspector]
-    public bool isShrinking = false;
-
-    [SerializeField, Header("Storm Visual Reference")]
-    private bool showVisualReference = true;
-
-    [HideInInspector]
-    public float stormCurrentRadius;
-
-    [SerializeField]
-    private GameObject stormVR;
-
-    [SerializeField]
-    private GameObject stormCenter;
-
-    [SerializeField]
-    private GameObject stormStencil;
-
-    [SerializeField]
-    private GameObject stormTop;
-
-    [SerializeField]
-    private GameObject stormBottom;
-
-    [SerializeField]
-    private GameObject stormRight;
-
-    [SerializeField]
-    private GameObject stormLeft;
-
-    [SerializeField, Header("Rain")]
-    private GameObject rain;
-
-    [SerializeField]
-    private GameObject lightning;
-
-    [SerializeField]
-    private GameObject lightningScreen;
-
-    [Space]
-
-    [Header("Storm General")]
-    [SerializeField, Tooltip("How many seconds to enable the storm.")]
-    private float stormStartTimer = 0f;
-
-    [SerializeField]
-    private float stormTargetRadius = 25f;
-
-    public float stormInitialRadius = 25f;
-
-    [SerializeField]
-    private float minimumRadius = 5f;
-
-    [SerializeField]
-    private float newTargetRadius = 50f;
-
-    [Range(0f,10f)]
-    public float stormSpeed = 2f;
-
-    [SerializeField]
-    private float movementStopInterval;
-
-    [SerializeField, Tooltip("This will only be used if the intervals list is empty. The higher this value, fast will be.")]
-    private float defautShrinkingSpeed = 3f;
-
-    [SerializeField]
-    private float stormHeight = 10f;
-
-    [SerializeField]
-    private List<string> wizardLaughsAudioNames;
-
-    [HideInInspector]
-    public bool enableDamage;
-
-    [Space]
-
-    [Header("Storm Damage")]
-    public float stormDamageValue = 0.1f;
-
-    [Space]
-
-    [SerializeField, Header("Shrinking Intervals")]
-    private IntervalRangeClass[] shrinkIntervals;
-
-    [SerializeField]
-    private LavaGround lavaGround;
-
-    [SerializeField]
-    private float timeToRaiseLava = 3f;
-
-    public bool isMoving;
-
-    public delegate void LavaActivated();
-
-    public static event LavaActivated LavaActivatedInfo;
-
-    public delegate void StormActivated();
-
-    public static event StormActivated StormActivatedInfo;
-
-    [Range(0.1f, 5f)]
-    public float timerDuration = 1f;
-
-    private void Awake()
-    {
-        instance = this;
-        stormFollower = FindObjectOfType<StormPathFollower>();
-    }
-
-    private void Start()
-    {      
-        stormFollower.SetPath();
-        circleTransform = transform;
-        stormCurrentRadius = stormInitialRadius;
-        circleCurrentSize = new Vector3(stormCurrentRadius, stormCurrentRadius, stormCurrentRadius);
-        newTargetRadius = stormInitialRadius;
-        listIndex = 0;
-        stormVR.SetActive(showVisualReference);
-        Invoke("StartStorm", stormStartTimer);
-    }
-
-    private void StartStorm()
-    {
-        enableDamage = true;
-        StartShrinkInterval();
-        FindObjectOfType<GamePlayUI>().ShowWizardWarning01();
-        if (movementStopInterval != 0)
-        {
-            Invoke("ToggleMoving", movementStopInterval);
-        }
-    }
-
-    private void Update()
-    {      
-        SetCircleSizeAndPosition(circleCurrentSize);
-        StormShrinking(newTargetRadius, shrinkingSpeed);
-        if (isShrinking && stormCurrentRadius - newTargetRadius < 0.01)
-        {
-            isShrinking = false;
-            NextShrinkInterval();
-        }
-        if (!doneBroadcasting && stormCurrentRadius <= 35)
-        {
-            doneBroadcasting = true;
-        }
-
-    }
-
-    private void SetCircleSizeAndPosition(Vector3 size) 
-    {
-        circleTransform.localScale = size;
-    }
-
-    private bool IsOutsideCircle(Vector3 position)
-    {
-        return Vector3.Distance(position, transform.position) > circleCurrentSize.x * .5f;
-    }
-
-    public static bool IsOutsideCircle_Static(Vector3 position)
-    {
-        return instance.IsOutsideCircle(position);
-    }
-
-
-    //Lerp the Storm Radius circle values
-    private void StormShrinking(float targetSize, float speed)
-    {
-        if (stormCurrentRadius != targetSize)
-        {
-            stormCurrentRadius = Mathf.Lerp(stormCurrentRadius, targetSize, Time.deltaTime * speed/10);
-            circleCurrentSize = new Vector3(stormCurrentRadius, stormCurrentRadius, stormHeight);
-        }
-    }
-
-    private void ToggleMoving()
-    {
-        if (isMoving)
-        {
-            isMoving = false;
-            Invoke("ToggleMoving", movementStopInterval);
-        }
-        else
-        {
-            isMoving = true;
-            Invoke("ToggleMoving", movementStopInterval);
-        }
-    }
-
-    private void StartShrinkInterval()
-    {
-        if (shrinkIntervals.Length != 0) //Use the list parameters
-        {
-            float intervalTimer;
-            intervalTimer = shrinkIntervals[listIndex].preCounter;
-            Invoke("ShrinkInterval", intervalTimer);
-        }
-    }
-
-    private void ShrinkInterval()
-    {
-        shrinkingSpeed = shrinkIntervals[listIndex].shrinkSpeed;
-        newTargetRadius = stormCurrentRadius - shrinkIntervals[listIndex].units;
-        isShrinking = true;
-        isMoving = shrinkIntervals[listIndex].moveStorm;
-
-        if (shrinkIntervals[listIndex].raiseLava)
-        {
-            Invoke("EnableLava", timeToRaiseLava);
-            int listIndex = Random.Range(0, wizardLaughsAudioNames.Count);
-
-            AudioManager.instance.Play(wizardLaughsAudioNames[listIndex]);
-        }
-
-        if (shrinkIntervals[listIndex].thunderWeak)
-        {
-            lightningScreen.SetActive(true);
-
-            AudioManager.instance.Play("Thunderstorm_02");
-        }
-
-        if (shrinkIntervals[listIndex].thunderStrong)
-        {
-            FindObjectOfType<GamePlayUI>().ShowWizardWarning02();
-            int listIndex = Random.Range(0, wizardLaughsAudioNames.Count);
-            rain.SetActive(true);
-            lightning.SetActive(true);
-            lightningScreen.SetActive(true);
-
-            AudioManager.instance.Play(wizardLaughsAudioNames[listIndex]);
-            AudioManager.instance.Play("Thunderstorm_01");
-            AudioManager.instance.Play("ThunderstormAmbience_01");
-            AudioManager.instance.Play("Rain_01");
-        }
-    }
-
-    private void EnableLava()
-    {
-        lavaGround.enabled = true;
-        DamagingZoneBehaviour.EnableZone();
-
-        AudioManager.instance.Play("LavaRaising_01");
-    }
-
-    private void NextShrinkInterval()
-    {
-        if (stormCurrentRadius >= minimumRadius)
-        {
-            listIndex++;
-            StartShrinkInterval();
-        }
-    }
-
-    public void RestartStorm()
-    {
-        stormFollower.distanceTraveled = 0f;
-
-        Start();
-    }
-
-    public void StopStorm()
-    {
-        enableDamage = false;
-        isMoving = false;
-        isShrinking = false;
-
-        AudioManager.instance.Stop("ThunderstormAmbience_01");
-        AudioManager.instance.Stop("Rain_01");
-    }
-}
-
-</code></pre>
-<br><br><br><br>
-
-								<div class="name_holder">
-									<br>
-									<h3>Storm Effect</h3>
-									<br>
-									<p>This component checks if the player character is outside the storm range, provoking damage to it when that condition is true.</p>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using UnityEngine;
-
-public class StormPlayerEffect : MonoBehaviour
-{
-
-    private PlayerHit myHitComponent;
-
-    private StormBehavior gameStorm;
-
-    private float initialStormTimer;
-
-    private float currentStormTimer;
-
-
-    private void Awake()
-    {
-        myHitComponent = GetComponent<PlayerHit>();
-        gameStorm = FindObjectOfType<StormBehavior>();
-        if (gameStorm != null)
-        {
-            initialStormTimer = gameStorm.timerDuration;
-            currentStormTimer = initialStormTimer;
-        }
-    }
-
-    private void Update()
-    {
-        if (gameStorm != null)
-        {
-            StormTimer();
-        }
-    }
-
-    private void StormTimer()
-    {
-        currentStormTimer -= Time.deltaTime;
-
-        if (currentStormTimer <= 0.0f)
-        {
-            MakeDamage();
-            currentStormTimer = initialStormTimer;
-        }
-    }
-
-    void MakeDamage()
-    {
-        if (StormBehavior.IsOutsideCircle_Static(transform.position))
-        {
-            if (myHitComponent)
-            {
-                myHitComponent.OnPlayerHit(Vector3.zero, 0, gameStorm.stormDamageValue, 0, 0, PlayerHit.HitBy.Storm, 0.2f, 0, 1);
-            }
-        }
-    }
-}
-
-
-</code></pre>
-<br><br><br><br>
-							</div>
-						<br>
-						
-						<div class="details_wrap">
-														
-							<div class="leftbox">
-								
-								<div class="name_holder">
-									<br>
-									<h3>Camera</h3>
-									<br>
-									<p>The camera sits on a dolly and <strong>moves backwards and forwards</strong> depending on the players distance; it also <strong>follows the players</strong> by calculating their bounds each frame. This ensures that all characters are within the camera's view and create an <strong>engaging gameplay dynamic</strong>. </p>
-									<br><br>
-									<button class="collapsible" onclick="showDiv('camera')">See the C# script</button>
-								</div>
-							</div>
-							<div class="rightbox">
-								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/dinozards/dino_03.mp4" type="video/mp4"></video>
-							</div>
-							
-						</div>		
-						
 							<div id="camera" class="content">
 								
 								<div class="name_holder">
 									<br>
-									<h3>Multiple Target Camera</h3>
+									<h3>Character Class</h3>
 									<br>
 								</div>
 
 <pre style"width:300px" class="line-numbers"><code class="language-cs">
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+import Character.COOPHealthComponent;
+import Weapons.COOPWeapon;
+import UI.COOPHUDWidget;
 
-public class MultipleTargetCamera : MonoBehaviour
+event void FOnDisarm();
+
+class ACoopCharacter : ACharacter
 {
 
-    private List<GameObject> targets;
+    default CapsuleComponent.SetCollisionResponseToChannel(ECollisionChannel::ECC_GameTraceChannel1, ECollisionResponse::ECR_Ignore);
 
-    [SerializeField]
-    private float smoothTime = .5f;
+	//Components
+    UPROPERTY(DefaultComponent, BlueprintReadOnly, Category = "Components")
+    USpringArmComponent SpringArm;
+    default SpringArm.bUsePawnControlRotation = true;
+    
+    UPROPERTY(DefaultComponent, BlueprintReadOnly, Category = "Components", Attach = SpringArm)
+    UCameraComponent CharacterCamera;
 
-    [SerializeField]
-    private float camMinZoom = 9f;
+    UPROPERTY(DefaultComponent, Category = "Components")
+    UInputComponent PlayerInputComponent;
 
-    [SerializeField]
-    private float camAngle = 75f;
+    UPROPERTY(DefaultComponent, Category = "Components")
+    UCOOPHealthComponent HealthComponent;
+    default HealthComponent.SetActive(false);
 
-    private Vector3 velocity;
+	UPROPERTY(Replicated)
+	FOnDisarm DisarmSignature;
 
-    [SerializeField]
-    private Camera myCamera;
+	//Character
+	UPROPERTY()
+	float WalkingSpeed = 430.0f;
 
-    private Vector3 centerPoint;
+	UPROPERTY()
+	float RunningSpeed = 550.0f;
 
-    private float playersBoundSize;
+	UPROPERTY(Replicated)
+	float NewSpeed;
 
-    private Vector3 originalPos;
+	UPROPERTY(Replicated, Category = "Character")
+	bool bIsCrouch;
 
-    [SerializeField]
-    private float zoomOutMultiplier;
+	UPROPERTY(ReplicatedUsing=OnRep_PlayerIsDead, Category = "Character")
+	bool bIsDead;
 
-    [HideInInspector]
-    public float boundLerp;
+	UPROPERTY(Replicated, Category = "Character")
+	bool bIsZooming;
 
-    public void StartCamera()
+	UPROPERTY(Replicated, Category = "Character")
+	bool bIsFiring;
+
+	UPROPERTY(Replicated, Category = "Character")
+	float CharacterDeathLifeSpan = 3.0f;
+
+	UPROPERTY(Replicated, Category = "Character")
+	bool bIsReloading;
+
+	//Weapon
+    UPROPERTY(Replicated, AdvancedDisplay, Category = "Weapons")
+    TSubclassOf<ACoopWeapon> MyWeaponClass;
+
+    UPROPERTY(Replicated, Category = "Weapons")
+    ACoopWeapon MyWeaponReference;
+
+    UPROPERTY(Category = "Weapons")
+    TSubclassOf<UCameraShake> FireCamShake;
+
+    UPROPERTY(Category = "Weapons")
+    bool bShakeCamera;
+
+	UPROPERTY(Replicated)
+	float AimYaw;
+
+	UPROPERTY(Replicated)
+	float AimPitch;
+
+	UPROPERTY(Replicated)
+	bool bCanDisarm = false;
+
+	UPROPERTY()
+	TSubclassOf<UUserWidget> CrosshairRef;
+
+	UPROPERTY()
+	TSubclassOf<UCOOPHUDWidget> HudRef;
+
+	UPROPERTY(DefaultComponent)
+	UWidgetComponent PlayerHUD;
+
+	TSubclassOf<UDamageType> MyDamageType;
+
+	default bUseControllerRotationYaw = false;
+	default SetReplicates(true);
+	default bReplicateMovement = true;
+
+
+    UFUNCTION(BlueprintOverride)
+    void BeginPlay()
     {
-        targets.Clear();
-
-        foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            targets.Add(item);
-        }
-
-        centerPoint = GetCenterPoint();
+        BindInput();
+		HealthComponent.OnDealDamageSignature.AddUFunction(this, n"DamageImpactAnimation");
+		if(LocalRole == ENetRole::ROLE_Authority)
+		{
+			bIsDead = false;
+			bIsReloading = false;
+			HealthComponent.OnDeadSignature.AddUFunction(this, n"OnPlayerDeath");
+			SpawnWeapon(MyWeaponClass);
+			NewSpeed = WalkingSpeed;
+		}
     }
 
-    public void RemovePlayer(GameObject killedPlayer)
+	UFUNCTION(BlueprintOverride)
+	void Tick(float DeltaSeconds)
+	{
+		CharacterMovement.MaxWalkSpeed = FMath::FInterpTo(CharacterMovement.MaxWalkSpeed, NewSpeed, DeltaSeconds, 5.0f);
+		if(LocalRole == ENetRole::ROLE_Authority)
+		{
+			UpdateYaw();
+		}
+	}
+
+	UFUNCTION(Server)
+	void UpdateYaw()
+	{
+		AimYaw = FMath::ClampAngle(FRotator(FRotator(GetControlRotation() - GetActorRotation()).Normalized).Yaw, -90.0f, 90.0f);
+		AimPitch = FMath::ClampAngle(FRotator(FRotator(GetControlRotation() - GetActorRotation()).Normalized).Pitch, -90.0f, 90.0f);
+	}
+
+    UFUNCTION()
+    void BindInput()
     {
-        targets.Remove(killedPlayer);
-        
-    }
-   
-    private void LateUpdate()
-    {
-        if (targets.Count == 0)
-        {
-            return;
-        }
-        centerPoint = GetCenterPoint();
-        playersBoundSize = GetPlayersBoundSize();
+        if(PlayerInputComponent != nullptr)
+        {           
+            PlayerInputComponent.BindAxis(n"GoForward", FInputAxisHandlerDynamicSignature(this, n"MoveForward"));
+            PlayerInputComponent.BindAxis(n"GoRight", FInputAxisHandlerDynamicSignature(this, n"MoveRight"));
+            PlayerInputComponent.BindAxis(n"MousePitch", FInputAxisHandlerDynamicSignature(this, n"LookUp"));
+            PlayerInputComponent.BindAxis(n"MouseYaw", FInputAxisHandlerDynamicSignature(this, n"Turn"));
 
-        transform.rotation = Quaternion.Euler(camAngle, 0f, 0f);
-        transform.position = Vector3.SmoothDamp(transform.position, centerPoint, ref velocity, smoothTime);
+            PlayerInputComponent.BindAction(n"Sprint", EInputEvent::IE_Pressed, FInputActionHandlerDynamicSignature(this, n"BeginSprint"));
+            PlayerInputComponent.BindAction(n"Sprint", EInputEvent::IE_Released, FInputActionHandlerDynamicSignature(this, n"EndSprint"));
 
-        boundLerp = Mathf.Clamp(Mathf.SmoothStep(boundLerp, playersBoundSize, smoothTime), camMinZoom, 999f);
+            PlayerInputComponent.BindAction(n"Crouch", EInputEvent::IE_Pressed, FInputActionHandlerDynamicSignature(this, n"BeginCrouch"));
+            PlayerInputComponent.BindAction(n"Crouch", EInputEvent::IE_Released, FInputActionHandlerDynamicSignature(this, n"EndCrouch"));
 
-        myCamera.transform.localPosition = new Vector3(0, 1f, 0) * (boundLerp + 5f) * zoomOutMultiplier;
-    }
+            PlayerInputComponent.BindAction(n"Jump", EInputEvent::IE_Released, FInputActionHandlerDynamicSignature(this, n"BeginJump"));
 
-    private Vector3 GetCenterPoint()
-    {
-        if (targets.Count == 1)
-        {
-            return targets[0].transform.position;
-        }
+			PlayerInputComponent.BindAction(n"Disarm", EInputEvent::IE_Pressed, FInputActionHandlerDynamicSignature(this, n"Disarm"));
 
-        Bounds bounds = new Bounds(targets[0].transform.position, Vector3.zero);
-        for (int i = 0; i < targets.Count; i++)
-        {
-            bounds.Encapsulate(targets[i].transform.position);
-        }
-        return bounds.center;
-    }
+			PlayerInputComponent.BindAction(n"Reload", EInputEvent::IE_Pressed, FInputActionHandlerDynamicSignature(this, n"StartReloadWeapon"));
 
-    private float GetPlayersBoundSize()
-    {
-        if (targets.Count == 1)
-        {
-            return camMinZoom;
-        }
-
-        Bounds bounds = new Bounds(targets[0].transform.position, Vector3.zero);
-        for (int i = 0; i < targets.Count; i++)
-        {
-            bounds.Encapsulate(targets[i].transform.position);
-        }
-
-        if (bounds.size.x >= bounds.size.z)
-        {
-            return bounds.size.x;
-        }
-        else
-        {
-            return bounds.size.z;
+            PlayerInputComponent.BindAction(n"Fire", EInputEvent::IE_Pressed, FInputActionHandlerDynamicSignature(this, n"StartTrigger"));
+            PlayerInputComponent.BindAction(n"Fire", EInputEvent::IE_Released, FInputActionHandlerDynamicSignature(this, n"EndTrigger"));   
         }
     }
+
+	/*
+	 * Input Binds
+	 */
+
+    UFUNCTION()
+    void MoveForward(float AxisValue)
+    {
+        AddMovementInput(GetActorForwardVector() * AxisValue);
+        GetMovementComponent().NavAgentProps.bCanCrouch = true;
+    }
+
+    UFUNCTION()
+    void MoveRight(float Value)
+    {
+        AddMovementInput(GetActorRightVector() * Value);
+    }
+
+    UFUNCTION()
+    void LookUp(float Value)
+    {
+        AddControllerPitchInput(-Value);
+    }
+
+    UFUNCTION()
+    void Turn(float Value)
+    {
+        AddControllerYawInput(Value);
+    }
+
+    UFUNCTION()
+    void BeginCrouch(FKey Key)
+    {
+		Crouch();
+		if(LocalRole < ENetRole::ROLE_Authority)
+		{
+			ServerCrouch(true);
+		}
+    }
+
+    UFUNCTION()
+    void EndCrouch(FKey Key)
+    {
+		UnCrouch();
+		if(LocalRole < ENetRole::ROLE_Authority)
+		{
+			ServerCrouch(false);
+		}
+    }
+
+    UFUNCTION()
+    void BeginSprint(FKey Key)
+    {
+		
+		if(bIsCrouched == false)
+		{
+			ServerSprint(RunningSpeed);
+		}
+		else
+		{
+			ServerSprint(WalkingSpeed);
+		}
+    }
+
+    UFUNCTION()
+    void EndSprint(FKey Key)
+    {
+		if(LocalRole < ENetRole::ROLE_Authority)
+		{
+			ServerSprint(WalkingSpeed);
+		}
+    }
+
+    UFUNCTION()
+    void BeginJump(FKey Key)
+    {
+        if(!bWasJumping)
+        {
+            Jump();
+        }
+    }
+
+    UFUNCTION()
+    void StartTrigger(FKey Key)
+    {
+        MyWeaponReference.StartFire();
+        return;
+    }
+
+    UFUNCTION(BlueprintEvent)
+    void EndTrigger(FKey Key)
+    {
+        MyWeaponReference.EndFire();
+		bIsFiring = false;
+        return;
+    }
+
+	UFUNCTION(BlueprintEvent)
+	void StartReloadWeapon(FKey Key)
+	{
+		if(LocalRole < ENetRole::ROLE_Authority)
+		{
+			ServerReload();
+		}
+
+		if(!bIsReloading && !MyWeaponReference.CanReload())
+		{
+			MyWeaponReference.bIsCurrentReloading = true;
+			bIsReloading = true;
+		}
+	}
+
+	UFUNCTION()
+	void Disarm(FKey Key)
+	{
+		
+		if(LocalRole < ENetRole::ROLE_Authority)
+		{
+			ServerDisarm();
+			return;
+		}
+
+		if(bCanDisarm)
+		{
+			P();
+			DisarmSignature.Broadcast();
+		}
+
+	}
+
+    UFUNCTION(BlueprintEvent)
+    void OnPlayerDeath()
+    {
+        if(!bIsDead)
+		{
+			//DEBUG
+			if(CVar_DebugWeaponDrawing.GetInt() > 0)
+			{
+				Print("I'm dead", 1.0f, FLinearColor::LucBlue);
+			}
+
+			if(LocalRole == ENetRole::ROLE_Authority)
+			{
+				bIsDead = true;
+			}
+
+
+			//Detach Weapon
+			if(MyWeaponReference != nullptr)
+			{
+				MyWeaponReference.ServerDetachWeapon();
+				MyWeaponReference.FireSignature.Clear();
+				MyWeaponReference = nullptr;
+			}
+			
+			//Disable Input + Destroy Actor			
+			DetachFromControllerPendingDestroy();
+			SetLifeSpan(CharacterDeathLifeSpan);
+		}
+        return;
+    }
+
+	/*
+	 * Weapon
+	 */
+
+    UFUNCTION()
+    void SpawnWeapon(TSubclassOf<ACoopWeapon> WeaponClass)
+    {
+		if(WeaponClass.IsValid())
+		{
+			AActor MySpawnedWeapon = SpawnActor(WeaponClass, FVector::ZeroVector, FRotator::ZeroRotator);
+			MySpawnedWeapon.AttachToComponent(Mesh, n"WeaponSocket", EAttachmentRule::SnapToTarget);
+			MySpawnedWeapon.SetOwner(this);
+			MyWeaponReference = Cast<ACoopWeapon>(MySpawnedWeapon);
+			MyWeaponReference.GetOwnerProperties(CharacterCamera);
+			MyWeaponReference.FireSignature.AddUFunction(this, n"WeaponFired");
+			MyWeaponReference.MagazineSignature.AddUFunction(this, n"StartReloadWeapon");
+		}
+    }
+
+	UFUNCTION(BlueprintEvent)
+    void WeaponFired(ACharacter OwnerCharacter)
+    {
+
+		if(bShakeCamera == true)
+        {        
+            APlayerController PC = Cast<APlayerController>(OwnerCharacter.GetController());
+            if(PC != nullptr)
+            {
+                PC.ClientPlayCameraShake(FireCamShake);
+            }
+            else
+            {
+                Print("Camera will not shake. Player Controller is NULL", 2.0f);
+            }
+        }
+		bIsFiring = true;
+		ServerFiringAnimation();
+    }
+
+	UFUNCTION(BlueprintEvent)
+	void FinishReloadWeapon()
+	{
+		MyWeaponReference.ReloadClip();
+		MyWeaponReference.bIsCurrentReloading = false;
+		bIsReloading = false;
+	}
+
+	/*
+	 * Damage
+	 */
+
+	UFUNCTION(BlueprintOverride)
+	void RadialDamage(float DamageReceived, const UDamageType DamageType, FVector Origin, FHitResult HitInfo, AController InstigatedBy, AActor DamageCauser)
+	{
+		//DEBUG
+		if(CVar_DebugWeaponDrawing.GetInt() > 0)
+        {
+			System::DrawDebugString(Origin, FString("Radial Damage: " + DamageReceived) , nullptr, FLinearColor::White, 1.0f);
+		}
+	}
+
+	UFUNCTION(BlueprintOverride)
+	void PointDamage(float DamageReceived, const UDamageType DamageType, FVector HitLocation, FVector HitNormal, UPrimitiveComponent HitComponent, FName BoneName, FVector ShotFromDirection, AController InstigatedBy, AActor DamageCauser, FHitResult HitInfo)
+	{
+		//DEBUG
+		if(CVar_DebugWeaponDrawing.GetInt() > 0)
+        {
+			System::DrawDebugString(HitLocation, FString("PointDamage: " + DamageReceived) , nullptr, FLinearColor::White, 1.0f);
+		}
+
+		Gameplay::ApplyDamage(this, DamageReceived, InstigatedBy, DamageCauser, MyDamageType);
+	}
+
+	UFUNCTION(BlueprintEvent)
+	void DamageImpactAnimation(float Damage, float Health, const UDamageType DamageType, AController InstigatedBy, AActor DamageCauser)
+	{
+		return;
+	}
+
+	/*
+	 * Networking 
+	 */
+
+	UFUNCTION(Server)
+	void ServerSprint(float Value)
+	{
+		NewSpeed = Value;
+	}
+
+	UFUNCTION(Server)
+	void ServerCrouch(bool Crouching)
+	{
+		if(Crouching)
+		{
+			bIsCrouch = true;
+		}
+		else
+		{
+			bIsCrouch = false;
+		}
+	}
+
+	UFUNCTION(Server)
+	void ServerReload()
+	{
+		FKey Key;
+		StartReloadWeapon(Key);
+	}
+
+	UFUNCTION(Server)
+	void ServerFiringAnimation()
+	{
+		PlayFiringAnimation();
+	}
+
+	UFUNCTION(NetMulticast, BlueprintEvent)
+	void PlayFiringAnimation()
+	{
+		return;
+	}
+
+	UFUNCTION()
+	void OnRep_PlayerIsDead()
+	{
+		RemovePlayerWidgets();
+	}
+
+	UFUNCTION(BlueprintEvent)
+	void RemovePlayerWidgets()
+	{
+		return;
+	}
+
+	UFUNCTION(Server)
+	void ServerDisarm()
+	{
+		FKey Key;
+		Disarm(Key);
+	}
+}
+</code></pre>
+
+<div class="name_holder">
+									<br>
+									<h3>Health Component</h3>
+									<br>
+								</div>
+
+<pre style"width:300px" class="line-numbers"><code class="language-cs">
+import Core.COOPStatics;
+
+event void FOnDealDamage(float Damage, float Health, const UDamageType DamageType, AController InstigatedBy, AActor DamageCauser);
+event void FOnDead();
+
+class UCOOPHealthComponent : UActorComponent
+{
+
+    UPROPERTY(ReplicatedUsing=OnRep_Health, BlueprintReadOnly)
+    float Health;
+
+    UPROPERTY()
+    float MaxHealth = 500.0f;
+
+	UPROPERTY(Replicated)
+	bool bIsDead;
+
+    UPROPERTY()
+    FOnDealDamage OnDealDamageSignature;
+
+    UPROPERTY()
+    FOnDead OnDeadSignature;
+
+	default SetIsReplicated(true);
+
+
+    UFUNCTION(BlueprintOverride)
+    void BeginPlay()
+    {
+		if(GetOwner().LocalRole == ENetRole::ROLE_Authority)
+		{
+			AActor MyOwner = GetOwner();
+			if(MyOwner != nullptr)
+			{
+				MyOwner.OnTakeAnyDamage.AddUFunction(this, n"DealDamage");
+			}
+		}
+        Health = MaxHealth;
+		bIsDead = false;      
+    }
+
+    UFUNCTION()
+    void DealDamage(AActor DamagedActor, float Damage, const UDamageType DamageType, AController InstigatedBy, AActor DamageCauser)
+    {
+		Health = Health - Damage;
+		if(Health > 0 && !bIsDead)
+        {
+            OnDealDamageSignature.Broadcast(Damage, Health, DamageType, InstigatedBy, DamageCauser);
+			
+			//DEBUG
+			if(CVar_DebugHealthComponents.GetInt() > 0)
+			{
+				Print(FString(DamagedActor.GetName() + " Damage Taken: " + Damage), 1.0f, FLinearColor::Yellow);
+			}
+		}
+        else if(!bIsDead)
+        {
+            //DEBUG
+			if(CVar_DebugHealthComponents.GetInt() > 0)
+			{
+				Print(FString(DamagedActor.GetName() + " HealthComponent: Health is below 0"), 1.0f, FLinearColor::Yellow);
+			}
+			bIsDead = true;
+			OnDeadSignature.Broadcast();
+        }
+    }
+
+	UFUNCTION()
+	void OnRep_Health(float OldHealth)
+	{
+		float Damage = Health - OldHealth;
+		const UDamageType DamageType;
+		OnDealDamageSignature.Broadcast(Damage, Health, DamageType, GetOwner().GetInstigatorController(), GetOwner());
+	}
+}
 </code></pre>
 <br><br><br><br>
 
@@ -865,1484 +857,22 @@ public class MultipleTargetCamera : MonoBehaviour
 								
 								<div class="name_holder">
 									<br>
-									<h3>Game Manager</h3>
+									<h3>Gameplay and Mission</h3>
 									<br>
-									<p>The game manager is composed by two components: <strong>Game Manager</strong> and <strong>Gameplay Handler</strong>. The first manages all the game states and conditions such: <strong>Gameplay Mode, Activate/Deactivate Players, Pause game, Load Scenes, Scoring, Quit application.</strong> Gameplay Handler: Handles the gameplay match conditions such: <strong>Spawning/Despawn Characters, Start match, Game Over, Trigger world dynamic events</strong> </p>
+									<p>Players start the level in station A and the<strong> objective is to reach station B and deactivate two computers.</strong> In this level a developed a <strong>loopable subway system</strong>, allowing players to travel between stations. <br><br> To add more action while traveling we trigger a world event spawning another train convoy full of enemies. <strong>The train wagons follow a spline path and wiggle using a simple cosine math function.</strong>  </p>
 									<br><br>
-									<button class="collapsible" onclick="showDiv('manager')">See the C# script</button>
 								</div>
 							</div>
 							<div class="rightbox">
 								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/dinozards/dino_04.mp4" type="video/mp4"></video>
+  									<source src="img/portfolio/Coop/COOP_03.mp4" type="video/mp4"></video>
 							</div>
 							
 						</div>		
 						
 							<div id="manager" class="content">
 								
-								<div class="name_holder">
-									<br>
-									<h3>Game Manager</h3>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using XInputDotNetPure;
-
-
-public class GameManager : MonoBehaviour
-{
-
-    // Public
-    public static GameManager managerInstance;
-
-    #region Fields    
-    public enum eGameState
-    {
-        CINEMATIC,
-        START,
-        SELECT,
-        PLAYING,
-        WAITING,
-        DEAD,
-        ROUNDOVER,
-        GAMEOVER,
-        CREDITS,
-        HELP,
-        PAUSE,
-        QUIT,
-        NULL
-    }
-
-    public eGameState gameState;
-
-    public enum eTeamMode
-    {
-        SOLO,
-        DOUBLES
-    }
-
-    public eTeamMode teamMode;
-
-    [HideInInspector]
-    public bool p1Active = true;
-    [HideInInspector]
-    public bool p2Active = true;
-    [HideInInspector]
-    public bool p3Active = true;
-    [HideInInspector]
-    public bool p4Active = true;
-
-    [SerializeField, Header("Character Selection Settings")]
-    private float characterSelectionCountdownTimer = 5f;
-
-    [SerializeField, Header("Match Settings")]
-    private float roundCountdownTimer = 3f;
-
-    public int maxNumberOfRounds = 3;
-
-    [SerializeField, Header("Audio")]
-    private List<string> playerJoinedAudioNames;
-
-    //Private
-
-    private int numberOfPlayersJoined;
-
-    public CharacterSelectionTimer charSelectionTimer;
-
-    private GamePlayHandler gamePlayHandler;
-
-    private CharacterPortrait p1Portrait;
-
-    private CharacterPortrait p2Portrait;
-
-    private CharacterPortrait p3Portrait;
-
-    private CharacterPortrait p4Portrait;
-
-    [HideInInspector]
-    public int player1Victories = 0;
-
-    [HideInInspector]
-    public int player2Victories = 0;
-
-    [HideInInspector]
-    public int player3Victories = 0;
-
-    [HideInInspector]
-    public int player4Victories = 0;
-
-    [HideInInspector]
-    public int draws = 0;
-
-    #endregion Fields
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-
-        if (managerInstance == null)
-        {
-            managerInstance = this;
-            OnLevelWasLoaded(SceneManager.GetActiveScene().buildIndex);
-            return;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-    }
-
-    private void Start()
-    {
-        GamePlayHandler.PlayerVictoryInfo += HandlePlayerVictory;
-    }
-
-    public void InitiateVariables()
-    {
-        p1Active = false;
-        p2Active = false;
-        p3Active = false;
-        p4Active = false;
-        numberOfPlayersJoined = 0;
-        teamMode = eTeamMode.SOLO;
-    }
-
-    #region Character Selection
-    public void PlayerJoin(PlayerIndex playerIndex)
-    {
-        if (playerIndex == PlayerIndex.One)
-        {
-            if (!p1Active)
-            {
-                p1Active = true;
-                CheckNumberOfPlayers(true);
-
-                p1Portrait.PlayerActive();
-            }
-            else
-            {
-                //Add visual animation if needed
-                return;
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Two)
-        {
-            if (!p2Active)
-            {
-                p2Active = true;
-                CheckNumberOfPlayers(true);
-
-                p2Portrait.PlayerActive();
-            }
-            else
-            {
-                //Add visual animation
-                return;
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Three)
-        {
-            if (!p3Active)
-            {
-                p3Active = true;
-                CheckNumberOfPlayers(true);
-
-                p3Portrait.PlayerActive();
-            }
-            else
-            {
-                //Add visual animation
-                return;
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Four)
-        {
-            if (!p4Active)
-            {
-                p4Active = true;
-                CheckNumberOfPlayers(true);
-
-                p4Portrait.PlayerActive();
-            }
-            else
-            {
-                //Add visual animation
-                return;
-            }
-        }
-    }
-
-    public void PlayerLeave(PlayerIndex playerIndex)
-    {
-        if (numberOfPlayersJoined == 0)
-        {
-            LoadScene(1);
-        }
-        else if (playerIndex == PlayerIndex.One)
-        {
-            if (p1Active)
-            {
-                p1Active = false;
-                CheckNumberOfPlayers(false);
-                p1Portrait.PlayerDeactivate();
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Two)
-        {
-            if (p2Active)
-            {
-                p2Active = false;
-                CheckNumberOfPlayers(false);
-                p2Portrait.PlayerDeactivate();
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Three)
-        {
-            if (p3Active)
-            {
-                p3Active = false;
-                CheckNumberOfPlayers(false);
-                p3Portrait.PlayerDeactivate();
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Four)
-        {
-            if (p4Active)
-            {
-                p4Active = false;
-                CheckNumberOfPlayers(false);
-                p4Portrait.PlayerDeactivate();
-            }
-        }
-    }
-
-    private void CheckNumberOfPlayers(bool isPlayerActive)
-    {
-        if (isPlayerActive)
-        {
-            numberOfPlayersJoined++;
-            int listIndex = Random.Range(0, playerJoinedAudioNames.Count);
-            AudioManager.instance.Play(playerJoinedAudioNames[listIndex]);
-            AudioManager.instance.Play("PlayerJoined_01");
-        }
-        else
-        {
-            numberOfPlayersJoined--;
-        }
-
-        if (charSelectionTimer)
-        {
-            charSelectionTimer.CheckActivePlayers(numberOfPlayersJoined);
-        }
-    }
-
-    public void PlayerStartMatch(PlayerIndex playerIndex)
-    {
-        if (playerIndex == PlayerIndex.One)
-        {
-            if (p1Active)
-            {
-                StartMatch();
-            }
-            else
-            {
-                //TODO Add visual animation???
-                return;
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Two)
-        {
-            if (p2Active)
-            {
-                StartMatch();
-            }
-            else
-            {
-                //TODO Add visual animation???
-                return;
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Three)
-        {
-            if (p3Active)
-            {
-                StartMatch();
-            }
-            else
-            {
-                //TODO Add visual animation???
-                return;
-            }
-        }
-
-        else if (playerIndex == PlayerIndex.Four)
-        {
-            if (p4Active)
-            {
-                StartMatch();
-            }
-            else
-            {
-                //TODO Add visual animation???
-                return;
-            }
-        }
-    }
-
-    public void StartMatch()
-    {
-        switch (teamMode)
-        {
-            case eTeamMode.SOLO:
-                if (numberOfPlayersJoined >= 2)
-                {
-                    AudioManager.instance.Play("PressStart_01");
-                    LoadScene(4);
-                }
-                break;
-            case eTeamMode.DOUBLES:
-                if (numberOfPlayersJoined >= 3)
-                {
-                    AudioManager.instance.Play("PressStart_01");
-                    LoadScene(4);
-                }
-                break;
-        }
-    }
-
-    #endregion Character Selection
-
-    #region GameOver
-
-    public void FinishMatch()
-    {
-        AudioManager.instance.Stop("GamePlay_01");
-        AudioManager.instance.Play("GameOver_01");
-    }
-
-    public void RestartGame()
-    {
-        LoadScene(2);
-    }
-
-
-    #endregion GameOver
-    public void LoadScene(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
-    }
-
-    private void OnLevelWasLoaded(int level)
-    {
-        if (level == 0)
-        {
-            gameState = eGameState.CINEMATIC;
-        }
-        else if (level == 1)
-        {
-            gameState = eGameState.START;
-        }
-        else if (level == 2)
-        {
-            gameState = eGameState.SELECT;
-        }
-        else if (level == 3)
-        {
-            gameState = eGameState.PLAYING;
-        }
-        else if (level == 4)
-        {
-            gameState = eGameState.WAITING;
-        }
-        OnGameStateSet();
-    }
-
-    private void HandlePlayerVictory(int index)
-    {
-        switch (index)
-        {
-            case 0:
-                draws++;
-                break;
-            case 1:
-                player1Victories++;
-                break;
-            case 2:
-                player2Victories++;
-                break;
-            case 3:
-                player3Victories++;
-                break;
-            case 4:
-                player4Victories++;
-                break;
-        }
-    }
-
-    public void OnGameStateSet()
-    {
-        switch (gameState)
-        {
-            case eGameState.CINEMATIC:
-                InitiateVariables();
-
-                break;
-
-            case eGameState.START:
-                InitiateVariables();
-                InitialScreen initialScreen = FindObjectOfType<InitialScreen>();
-                initialScreen.DisableQuitGame();
-                break;
-
-            case eGameState.SELECT:
-                InitiateVariables();
-
-                p1Portrait = GameObject.FindGameObjectWithTag("Player_01_Portrait").GetComponent<CharacterPortrait>();
-                p2Portrait = GameObject.FindGameObjectWithTag("Player_02_Portrait").GetComponent<CharacterPortrait>();
-                p3Portrait = GameObject.FindGameObjectWithTag("Player_03_Portrait").GetComponent<CharacterPortrait>();
-                p4Portrait = GameObject.FindGameObjectWithTag("Player_04_Portrait").GetComponent<CharacterPortrait>();
-
-                charSelectionTimer = FindObjectOfType<CharacterSelectionTimer>();
-                charSelectionTimer.matchStartTimer = characterSelectionCountdownTimer;
-                charSelectionTimer.ResetCounter();
-
-                AudioManager.instance.Play("PressStart_01");
-                break;
-
-            case eGameState.PLAYING:
-                gamePlayHandler = FindObjectOfType<GamePlayHandler>();
-                gamePlayHandler.AwakeLevel(this);
-
-                AudioManager.instance.Play("GamePlay_01");
-                break;
-
-            case eGameState.WAITING:
-                break;
-
-            case eGameState.GAMEOVER:
-                break;
-
-            case eGameState.HELP:
-                charSelectionTimer.EnableHelpWindow();
-                break;
-
-            case eGameState.CREDITS:
-                charSelectionTimer.EnableCreditsWindow();
-                break;
-
-            case eGameState.PAUSE:
-                gamePlayHandler = FindObjectOfType<GamePlayHandler>();
-                gamePlayHandler.PauseGame();
-                break;
-
-            case eGameState.QUIT:
-                InitialScreen initialScreen2 = FindObjectOfType<InitialScreen>();
-                initialScreen2.EnableQuitGame();
-                break;
-
-            case eGameState.NULL:
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    public void ChangeTeamMode()
-    {
-        switch (teamMode)
-        {
-            case eTeamMode.SOLO:
-                teamMode = eTeamMode.DOUBLES;
-                if (charSelectionTimer)
-                {
-                    charSelectionTimer.UpdateTeamText(teamMode);
-                }
-                break;
-
-            case eTeamMode.DOUBLES:
-                teamMode = eTeamMode.SOLO;
-                if (charSelectionTimer)
-                {
-                    charSelectionTimer.UpdateTeamText(teamMode);
-                }
-                break;
-
-        }
-        if (charSelectionTimer)
-        {
-            charSelectionTimer.CheckActivePlayers(numberOfPlayersJoined);
-            charSelectionTimer.ResetCounter();
-        }
-
-        p1Portrait.SetTeamMode();
-        p2Portrait.SetTeamMode();
-        p3Portrait.SetTeamMode();
-        p4Portrait.SetTeamMode();
-
-        AudioManager.instance.Play("PressStart_01");
-    }
-
-    public void UnpauseGame()
-    {
-        gameState = eGameState.PLAYING;
-        gamePlayHandler = FindObjectOfType<GamePlayHandler>();
-        gamePlayHandler.UnpauseGame();
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-}
-
-</code></pre>
-<br><br><br><br>
-
 								
-								<div class="name_holder">
-									<br>
-									<h3>Gameplay Handler</h3>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GamePlayHandler : MonoBehaviour
-{
-
-    #region Fields
-
-    [SerializeField]
-    private GameObject player1Prefab;
-
-    [SerializeField]
-    private GameObject player2Prefab;
-
-    [SerializeField]
-    private GameObject player3Prefab;
-
-    [SerializeField]
-    private GameObject player4Prefab;
-
-    public int preGameCounter = 3;
-
-    public int nextGameCounter = 5;
-
-    [SerializeField]
-    private GamePlayUI gamePlayUI;
-
-    [HideInInspector]
-    public LavaGround lavaGround;
-
-    [HideInInspector]
-    public List<GameObject> playerCharacters = new List<GameObject>();
-
-    [HideInInspector]
-    public List<Transform> playersTransform = new List<Transform>();
-
-    private int currentRound;
-
-    private bool isGameStarted;
-
-    [HideInInspector]
-    public int activePlayers;
-
-    private int blueTeamPlayers;
-
-    private int redTeamPlayers;
-
-    [HideInInspector]
-    public int blueTeamScore;
-
-    [HideInInspector]
-    public int redTeamScore;
-
-    [HideInInspector]
-    public int playerOneScore;
-
-    [HideInInspector]
-    public int playerTwoScore;
-
-    [HideInInspector]
-    public int playerThreeScore;
-
-    [HideInInspector]
-    public int playerFourScore;
-
-    [HideInInspector]
-    private StormBehavior storm;
-
-    private Vector3 p1Position;
-
-    private Vector3 p2Position;
-
-    private Vector3 p3Position;
-
-    private Vector3 p4Position;
-
-    private Quaternion p1Rotation;
-
-    private Quaternion p2Rotation;
-
-    private Quaternion p3Rotation;
-
-    private Quaternion p4Rotation;
-
-    private MultipleTargetCamera newCamera;
-
-    public float player1Damage = 0f;
-
-    public float player2Damage = 0f;
-
-    public float player3Damage = 0f;
-
-    public float player4Damage = 0f;
-
-    public int p1Kills;
-
-    public int p2Kills;
-
-    public int p3Kills;
-
-    public int p4Kills;
-
-    public delegate void PlayerVictory(int index);
-
-    public static event PlayerVictory PlayerVictoryInfo;
-
-    #endregion Fields
-
-    #region Awake
-    public void AwakeLevel(GameManager currentGameManager)
-    {
-        InitializeVariables();
-
-        storm = FindObjectOfType<StormBehavior>();
-        newCamera = FindObjectOfType<MultipleTargetCamera>();
-
-        GetPlayersInitialLocation();
-    }
-
-    private void InitializeVariables()
-    {
-        isGameStarted = false;
-    }
-
-    #endregion Awake
-
-    #region Start
-    private void Start()
-    {
-        SetPlayersTeams(); //Set proper teams according to game team mode
-        DeactivateAllPlayers();
-        gamePlayUI.StartPreGame();  //Triggers StartRound() + Trigger UI Panel check GamePlayUI.cs for more details --- 
-
-        DashAbility.damageDealtInfo += PlayerDamageDealtHandle;
-        Projectile.damageDealtInfo += PlayerDamageDealtHandle;
-        ProjectileMergeExplosion.damageDealtInfo += PlayerDamageDealtHandle;
-    }
-
-    void PlayerDamageDealtHandle(int index, float amount)
-    {
-        switch (index)
-        {
-            case 1:
-                player1Damage += amount;
-                break;
-
-            case 2:
-                player2Damage += amount;
-                break;
-
-            case 3:
-                player3Damage += amount;
-                break;
-
-            case 4:
-                player4Damage += amount;
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    public void StartRound()
-    {
-
-        if (GameManager.managerInstance.p1Active)
-        {
-            player1Prefab.SetActive(true);
-        }
-
-        if (GameManager.managerInstance.p2Active)
-        {
-            player2Prefab.SetActive(true);
-        }
-
-        if (GameManager.managerInstance.p3Active)
-        {
-            player3Prefab.SetActive(true);
-        }
-
-        if (GameManager.managerInstance.p4Active)
-        {
-            player4Prefab.SetActive(true);
-        }
-
-        SetPlayersInitialLocation();
-        newCamera.StartCamera();
-        GetPlayersInSession();
-        currentRound++;
-
-            if (currentRound > 1)
-            {
-                storm.RestartStorm();
-            }
-        isGameStarted = true;
-    }
-
-    private void GetPlayersInSession()
-    {
-        activePlayers = 0;
-        playerCharacters.Clear();
-        foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            playerCharacters.Add(item);
-            playersTransform.Add(item.transform);
-            activePlayers++;
-        }
-    }
-
-    #endregion Start       
-
-    private void Update()
-    {
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                if (isGameStarted && activePlayers <= 1)
-                {
-                    isGameStarted = false;
-                    EndRound();
-                }
-                break;
-
-            case GameManager.eTeamMode.DOUBLES:
-                if (isGameStarted && (redTeamPlayers == 0 || blueTeamPlayers == 0))
-                {
-                    isGameStarted = false;
-                    EndRound();
-                }
-                break;
-        }
-    }
-
-    private void EndRound()
-    {
-        isGameStarted = false;
-
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                if (playerCharacters.Count == 0)
-                {
-                    PlayerVictoryInfo(0);
-                }
-
-                else if (playerCharacters[0].GetComponent<PlayerInput>().playerIndex.ToString() == "One")
-                {
-                    playerOneScore++;
-                    PlayerVictoryInfo(1);
-                }
-                else if (playerCharacters[0].GetComponent<PlayerInput>().playerIndex.ToString() == "Two")
-                {
-                    playerTwoScore++;
-                    PlayerVictoryInfo(2);
-                }
-                else if (playerCharacters[0].GetComponent<PlayerInput>().playerIndex.ToString() == "Three")
-                {
-                    playerThreeScore++;
-                    PlayerVictoryInfo(3);
-                }
-                else if (playerCharacters[0].GetComponent<PlayerInput>().playerIndex.ToString() == "Four")
-                {
-                    playerFourScore++;
-                    PlayerVictoryInfo(4);
-                }
-                break;
-
-            case GameManager.eTeamMode.DOUBLES:
-                if (playerCharacters.Count == 0)
-                {
-                    PlayerVictoryInfo(0);
-                }
-
-                else if (redTeamPlayers == 0)
-                {
-                    blueTeamScore++;
-                }
-                else if (blueTeamScore == 0)
-                {
-                    redTeamScore++;
-                }
-                break;
-        }
-
-        storm.StopStorm();
-        CheckRoundEnd();
-    }
-
-    private void CheckRoundEnd()
-    {
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                if (playerOneScore >= GameManager.managerInstance.maxNumberOfRounds)
-                {
-                    EndGame(1);
-                }
-                else if (playerTwoScore >= GameManager.managerInstance.maxNumberOfRounds)
-                {
-                    EndGame(2);
-                }
-                else if (playerThreeScore >= GameManager.managerInstance.maxNumberOfRounds)
-                {
-                    EndGame(3);
-                }
-                else if (playerFourScore >= GameManager.managerInstance.maxNumberOfRounds)
-                {
-                    EndGame(4);
-                }
-                else
-                {
-                    EndGame(0);  
-                    DeactivateAllPlayers();
-                }
-                break;
-
-            case GameManager.eTeamMode.DOUBLES:
-                if (blueTeamScore >= GameManager.managerInstance.maxNumberOfRounds)
-                {
-                    blueTeamScore++;
-                    EndGame(1);
-                }
-                else if (redTeamScore >= GameManager.managerInstance.maxNumberOfRounds)
-                {
-                    redTeamScore++;
-                    EndGame(2);
-                }
-                break;
-        }
-    }
-
-    private void EndGame(int winnerPlayer)
-    {
-        GameManager.managerInstance.FinishMatch();
-
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                switch (winnerPlayer)
-                {
-                    case 1:
-                        player1Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player1Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        break;
-
-                    case 2:
-                        player2Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player2Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        break;
-
-                    case 3:
-                        player3Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player3Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        break;
-
-                    case 4:
-                        player4Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player4Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        break;
-                }
-                break;
-
-            case GameManager.eTeamMode.DOUBLES:
-                switch (winnerPlayer)
-                {
-
-                    case 1:
-                        player1Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player1Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        player2Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player2Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        break;
-
-                    case 2:
-                        player3Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player3Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        player4Prefab.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsWinning);
-                        player4Prefab.transform.rotation = new Quaternion(0, 260, 0, 0);
-                        break;
-                }
-                 break;
-        }
-
-        storm.StopStorm();
-        gamePlayUI.StartGameOver(winnerPlayer);
-    }
-
-    public void PlayerKilled(GameObject killedPlayer, int instigator) {
-
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                activePlayers--;
-                break;
-            case GameManager.eTeamMode.DOUBLES:
-                if (killedPlayer.GetComponentInParent<PlayerStates>().inTeam == PlayerStates.Team.Team1)
-                {
-                    blueTeamPlayers--;
-                }
-                else if (killedPlayer.GetComponentInParent<PlayerStates>().inTeam == PlayerStates.Team.Team2)
-                {
-                    redTeamPlayers--;
-                }
-                break;
-        }
-        playerCharacters.Remove(killedPlayer);
-
-
-        if (instigator == 1)
-        {
-            p1Kills++;
-        }
-        else if (instigator == 2)
-        {
-            p2Kills++;
-        }
-        else if (instigator == 3)
-        {
-            p3Kills++;
-        }
-        else if (instigator == 4)
-        {
-            p4Kills++;
-        }
-
-        killedPlayer.GetComponent<PlayerStates>().SetStateTo(PlayerStates.PossibleStates.IsDead); // Here a bunch of other Dead Stuff gets set as well       
-        newCamera.RemovePlayer(killedPlayer);
-
-    }
-
-    public void SetPlayersTeams()
-    {
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                player1Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team1;
-                player2Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team2;
-                player3Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team3;
-                player4Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team4;
-                break;
-
-            case GameManager.eTeamMode.DOUBLES:
-                player1Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team1;
-                player2Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team1;
-                player3Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team2;
-                player4Prefab.GetComponentInParent<PlayerStates>().inTeam = PlayerStates.Team.Team2;
-                redTeamPlayers = 2;
-                blueTeamPlayers = 2;
-                break;
-        }
-    }
-
-    public void DeactivateAllPlayers()
-    {
-        player1Prefab.SetActive(false);
-        player2Prefab.SetActive(false);
-        player3Prefab.SetActive(false);
-        player4Prefab.SetActive(false);
-    }
-
-    private void GetPlayersInitialLocation()
-    {
-        p1Position = player1Prefab.transform.position;
-        p2Position = player2Prefab.transform.position;
-        p3Position = player3Prefab.transform.position;
-        p4Position = player4Prefab.transform.position;
-        p1Rotation = player1Prefab.transform.rotation;
-        p2Rotation = player2Prefab.transform.rotation;
-        p3Rotation = player3Prefab.transform.rotation;
-        p4Rotation = player4Prefab.transform.rotation;
-    }
-
-    private void SetPlayersInitialLocation()
-    {
-        player1Prefab.transform.position = p1Position;
-        player1Prefab.transform.rotation = p1Rotation;
-        player2Prefab.transform.position = p2Position;
-        player2Prefab.transform.rotation = p2Rotation;
-        player3Prefab.transform.position = p3Position;
-        player3Prefab.transform.rotation = p3Rotation;
-        player4Prefab.transform.position = p4Position;
-        player4Prefab.transform.rotation = p4Rotation;
-    }
-    public void PauseGame()
-    {
-        Time.timeScale = 0f;
-        gamePlayUI.ShowPauseMenu();
-    }
-
-    public void UnpauseGame()
-    {
-        Time.timeScale = 1f;
-        gamePlayUI.HidePauseMenu();
-    }
-}
-</code></pre>
-<br><br><br><br>
-
-		</div>
-						
-						<div class="details_wrap">
-														
-							<div class="leftbox">
-								
-								<div class="name_holder">
-									<br>
-									<h3>UI and Menus</h3>
-									<br>
-									<p>I implemented and animated all the Menus and In-game UI elements. My focus was to provide good visual feedbacks and game feeling experience. </p>
-									<br><br>
-									<button class="collapsible" onclick="showDiv('UI')">See the C# script</button>
-								</div>
-							</div>
-							<div class="rightbox">
-								<video autoplay loop muted playsinline width="100%" height="auto">
-  									<source src="img/portfolio/dinozards/dino_05.mp4" type="video/mp4"></video>
-							</div>
-							
-						</div>		
-						
-							<div id="UI" class="content">
-								
-								<div class="name_holder">
-									<br>
-									<h3>Gameplay UI</h3>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using UnityEngine;
-using UnityEngine.UI;
-
-public class GamePlayUI : MonoBehaviour
-{
-
-    #region Fields
-    [SerializeField]
-    private GamePlayHandler gamePlayHandler;
-
-    [SerializeField, Header("Pre-Game")]
-    private GameObject preCounterPanel;
-
-    [SerializeField]
-    private Text preGameCounterText;
-
-    [SerializeField, Header("Round Over Screen")]
-    private GameObject nextRoundPanel;
-
-    [SerializeField]
-    private Text p1KillScore;
-
-    [SerializeField]
-    private Text p2KillScore;
-
-    [SerializeField]
-    private Text p3KillScore;
-
-    [SerializeField]
-    private Text p4KillScore;
-
-    [SerializeField]
-    private Text p1DamageScore;
-
-    [SerializeField]
-    private Text p2DamageScore;
-
-    [SerializeField]
-    private Text p3DamageScore;
-
-    [SerializeField]
-    private Text p4DamageScore;
-
-    [SerializeField]
-    private Text nextRoundTimer;
-
-    [SerializeField, Header("Game Over Screen")]
-    private GameObject gameOverPanel;
-
-    [SerializeField]
-    private Text winner;
-
-    [SerializeField]
-    private float timeToShowEndScreen = 3f;
-
-    [SerializeField]
-    private Sprite p1WinnerPortrait;
-
-    [SerializeField]
-    private Sprite p2WinnerPortrait;
-
-    [SerializeField]
-    private Sprite p3WinnerPortrait;
-
-    [SerializeField]
-    private Sprite p4WinnerPortrait;
-
-    [SerializeField]
-    private Sprite blueTeamWinnerPortrait;
-
-    [SerializeField]
-    private Sprite redTeamWinnerPortrait;
-
-    [SerializeField]
-    private Sprite drawPortrait;
-
-    [SerializeField]
-    private Sprite winnerTextImage;
-
-    [SerializeField]
-    private Sprite drawTextImage;
-
-    [SerializeField]
-    private Image winnerPortrait;
-
-    [SerializeField]
-    private Image resultScreenImage;
-
-    private bool preGameTimerStarted = false;
-
-    private bool nextRoundTimerStarted = false;
-
-    private float uiNextGameCounter;
-
-    [SerializeField, Header("Wizard Warnings")]
-    private GameObject wizardWarning;
-
-    [SerializeField]
-    private GameObject wizardWarning2;
-
-    [SerializeField, Header("Pause Menu")]
-    private GameObject pauseMenu;
-
-    private int warningsListIndex;
-
-    private int preGameCounterIndex;
-
-    private float soundCounterTimer = 0.9f;
-
-    private bool matchStarted;
-
-    #endregion Fields
-
-    public void StartPreGame() //Set Countdown condition true
-    {
-        Invoke("CountdownBegin", 1f);
-    }
-
-    public void CountdownBegin()
-    {
-        preCounterPanel.SetActive(true);
-        AudioManager.instance.Play("GameStart_01");
-        Invoke("CountdownEnd", 2.5f);
-    }
-
-    public void CountdownEnd()
-    {
-        gamePlayHandler.StartRound();
-    }
-
-    public void StartRoundOver()
-    {
-        uiNextGameCounter = gamePlayHandler.nextGameCounter;
-        nextRoundPanel.SetActive(true);
-        nextRoundTimerStarted = true;       //Start Timer
-    }
-
-    public void StartGameOver(int winnerPlayer)
-    {
-
-        switch (GameManager.managerInstance.teamMode)
-        {
-            case GameManager.eTeamMode.SOLO:
-                if (winnerPlayer == 0)
-                {
-                    winnerPortrait.sprite = drawPortrait;
-                    resultScreenImage.sprite = drawTextImage;
-                }
-                else if (winnerPlayer == 1)
-                {
-                    winnerPortrait.sprite = p1WinnerPortrait;
-                    resultScreenImage.sprite = winnerTextImage;
-                }
-                else if (winnerPlayer == 2)
-                {
-                    winnerPortrait.sprite = p2WinnerPortrait;
-                    resultScreenImage.sprite = winnerTextImage;
-                }
-                else if (winnerPlayer == 3)
-                {
-                    winnerPortrait.sprite = p3WinnerPortrait;
-                    resultScreenImage.sprite = winnerTextImage;
-                }
-                else if (winnerPlayer == 4)
-                {
-                    winnerPortrait.sprite = p4WinnerPortrait;
-                    resultScreenImage.sprite = winnerTextImage;
-                }
-                break;
-                
-            case GameManager.eTeamMode.DOUBLES:
-                if (winnerPlayer == 0)
-                {
-                    winnerPortrait.sprite = drawPortrait;
-                    resultScreenImage.sprite = drawTextImage;
-                }
-                else if (winnerPlayer == 1)
-                {
-                    winnerPortrait.sprite = blueTeamWinnerPortrait;
-                    resultScreenImage.sprite = winnerTextImage;
-                }
-                else if (winnerPlayer == 2)
-                {
-                    winnerPortrait.sprite = redTeamWinnerPortrait;
-                    resultScreenImage.sprite = winnerTextImage;
-                }
-                break;
-        }
-
-        p1KillScore.text = gamePlayHandler.p1Kills.ToString();
-        p2KillScore.text = gamePlayHandler.p2Kills.ToString();
-        p3KillScore.text = gamePlayHandler.p3Kills.ToString();
-        p4KillScore.text = gamePlayHandler.p4Kills.ToString();
-
-        p1DamageScore.text = gamePlayHandler.player1Damage.ToString("0") + "hp";
-        p2DamageScore.text = gamePlayHandler.player2Damage.ToString("0") + "hp";
-        p3DamageScore.text = gamePlayHandler.player3Damage.ToString("0") + "hp";
-        p4DamageScore.text = gamePlayHandler.player4Damage.ToString("0") + "hp";
-
-        Invoke("ShowEndScreen", timeToShowEndScreen);
-    }
-
-    private void ShowEndScreen()
-    {
-        gameOverPanel.SetActive(true);
-        GetComponent<GamePlayHandler>().DeactivateAllPlayers();
-    }
-
-    private void Update()
-    {
-        NextRoundTimer();
-    }
-
-    private void NextRoundTimer()
-    {
-        if (nextRoundTimerStarted)
-        {
-            uiNextGameCounter -= Time.deltaTime;
-            nextRoundTimer.text = (uiNextGameCounter).ToString("0");
-            if (uiNextGameCounter < 0)
-            {
-                nextRoundTimerStarted = false;
-                nextRoundPanel.SetActive(false);
-                gamePlayHandler.StartRound();
-            }
-        }
-    }
-
-    public void ShowWizardWarning01()
-    {
-        wizardWarning.SetActive(true);
-    }
-
-    public void DeactivateWizard()
-    {
-        wizardWarning.SetActive(false);
-    }
-
-    public void ShowWizardWarning02()
-    {
-        wizardWarning2.SetActive(true);
-    }
-
-    public void DeactivateWizard2()
-    {
-        wizardWarning2.SetActive(false);
-    }
-
-    public void ShowPauseMenu()
-    {
-        pauseMenu.SetActive(true);
-    }
-
-    public void HidePauseMenu()
-    {
-        pauseMenu.SetActive(false);
-    }
-}
-
-</code></pre>
-<br><br><br><br>
-
-		</div>
-						
-						<div class="details_wrap">
-														
-							<div class="leftbox">
-								
-								<div class="name_holder">
-									<br>
-									<h3>Sound Design</h3>
-									<br>
-									<p>I <strong>selected</strong>, <strong>edited</strong> and implemented sound effects and soundtracks in the game. The <strong>Audio Manager</strong> is the component responsible for handling all the sounds in the game. Watching an Brackeys tutorial I built the script base and created my own custom methods. It has functions to<strong> play, stop and randomize the audio pitch.</strong></p>
-									<br><br>
-									<button class="collapsible" onclick="showDiv('sound')">See the C# script</button>
-								</div>
-							</div>
-							<div class="rightbox">
-								<iframe width="87.5%" height="100%" src="https://www.youtube.com/embed/Qo9QSZY7CHU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							</div>
-							
-						</div>		
-						
-							<div id="sound" class="content">
-								
-								<div class="name_holder">
-									<br>
-									<h3>Audio Manager</h3>
-									<br>
-								</div>
-
-<pre style"width:300px" class="line-numbers"><code class="language-cs">
-using UnityEngine;
-using UnityEngine;
-using System;
-
-public class AudioManager : MonoBehaviour
-{
-
-    public Sound[] singleSounds;
-
-    public static AudioManager instance;
-
-    void Awake()
-    {
-
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-
-        foreach (Sound s in singleSounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
-        }
-    }
-
-
-    public void Play(string name)
-    {
-        Sound s = Array.Find(singleSounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " not found! Miss typo?");
-            return;
-        }
-        s.source.Play();
-    }
-
-    public void PlayWithPitch(string name, float newPitch)
-    {
-        Sound s = Array.Find(singleSounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " is missing");
-            return;
-        }
-        s.source.pitch = Mathf.Lerp(1f, 2f, (newPitch / 10));
-        s.source.Play();
-
-    }
-
-    public void PlayWithRandomPitch(string name)
-    {
-        Sound s = Array.Find(singleSounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " is missing");
-            return;
-        }
-        s.source.pitch = UnityEngine.Random.Range(0.75f, 2f);
-        s.source.Play();
-
-    }
-
-    public void SetPitch(string name, float newPitch)
-    {
-        Sound s = Array.Find(singleSounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " is missing");
-            return;
-        }
-        s.source.pitch = newPitch;
-        //Debug.Log(newPitch);
-    }
-
-    public void Stop(string name)
-    {
-        Sound s = Array.Find(singleSounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " is missing");
-            return;
-        }
-        s.source.Stop();
-    }
-}
-
-</code></pre>
 <br><br><br><br>
 
 		</div>
